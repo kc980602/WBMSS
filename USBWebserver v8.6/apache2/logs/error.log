@@ -1,0 +1,6 @@
+[Sat Jul 15 18:03:58.130203 2017] [mpm_winnt:notice] [pid 24348:tid 740] AH00455: Apache/2.4.6 (Win32) PHP/5.4.17 configured -- resuming normal operations
+[Sat Jul 15 18:03:58.130203 2017] [mpm_winnt:notice] [pid 24348:tid 740] AH00456: Apache Lounge VC10 Server built: Jul 16 2013 11:15:41
+[Sat Jul 15 18:03:58.130203 2017] [core:notice] [pid 24348:tid 740] AH00094: Command line: 'C:\\Users\\Kevin\\Desktop\\USBWebserver v8.6/apache2/bin/httpd_usbwv8.exe -d C:/Users/Kevin/Desktop/USBWebserver v8.6/apache2'
+[Sat Jul 15 18:03:58.130203 2017] [mpm_winnt:notice] [pid 24348:tid 740] AH00418: Parent: Created child process 9884
+[Sat Jul 15 18:03:58.911495 2017] [mpm_winnt:notice] [pid 9884:tid 736] AH00354: Child: Starting 64 worker threads.
+[Sat Jul 15 20:14:43.040166 2017] [:error] [pid 9884:tid 1260] [client ::1:60915] PHP Warning:  phpinfo(): It is not safe to rely on the system's timezone settings. You are *required* to use the date.timezone setting or the date_default_timezone_set() function. In case you used any of those methods and you are still getting this warning, you most likely misspelled the timezone identifier. We selected the timezone 'UTC' for now, but please set date.timezone to select your timezone. in C:\\Users\\Kevin\\Desktop\\USBWebserver v8.6\\root\\index.php on line 47
