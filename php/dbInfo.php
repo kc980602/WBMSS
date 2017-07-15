@@ -1,6 +1,6 @@
 <?php
-  $servername = "localhost:3307";
-  $username = "root";
-  $password = "usbw";
-  $dbname = "projectDB";
- ?>
+		$hostname = "127.0.0.1:3307";
+		$username = "root";
+		$password = "";
+		$database = "wbmmsDB";
+?>
