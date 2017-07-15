@@ -1,11 +1,19 @@
 <?php
 function printFormItem($name, $text, $hint, $type, $value){
+  if($type!="date"){
+    $length = "255";
+    $min = "";
+  }else{
+    $length = "";
+    $min = "1999-12-31";
+  }
   $itemHtml = <<< EOD
   <div class="form-group">
     <label class="col-md-4 control-label" for="$name">$text</label>
     <div class="col-md-4">
     <input id="$name" name="$name" type="$type" placeholder="$hint"
-    value="$value" class="form-control input-md" required="">
+    value="$value" class="form-control input-md" required="" maxlength="$length"
+    min="$min">
     </div>
   </div>
 EOD;
@@ -43,4 +51,4 @@ function printFormButton($name, $text, $type, $action){
 EOC;
 echo $itemHtml;
 }
- ?>
+?>
