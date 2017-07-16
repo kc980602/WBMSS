@@ -77,7 +77,7 @@
 
   <div class="mainContent">
     <div class="container">
-      <form class="form-horizontal" action="../php/register_event.php" method="post">
+      <form class="form-horizontal" name="registerEventForm" onSubmit="submitForm();return false;" action="../php/register_event.php" method="post">
         <fieldset>
 
           <!-- Form Name -->
@@ -87,7 +87,7 @@
           <div class="form-group">
             <label class="col-md-4 control-label" for="fn">Event</label>
             <div class="col-md-4">
-				<select class="form-control" onchange="changeEventDisplay(value);" id="events-selection">
+				<select class="form-control" name="event" onchange="changeEventDisplay(value);" id="events-selection">
 
 				</select>
             </div>
@@ -100,7 +100,7 @@
 			<img width="40" height ="40" class="img-rounded" id="racekits-image">
             <label class="col-md-4 control-label" for="ln">Race Kit</label>
             <div class="col-md-4">
-			<select class="form-control" onchange="changeRaceKitDisplay(value);" id="racekits-selection">
+			<select class="form-control" name="racekit" onchange="changeRaceKitDisplay(value);" id="racekits-selection">
 
 				</select>
 
@@ -142,6 +142,7 @@
   var total = 0;
   var previousEventPrice = 0;
   var previousRaceKitPrice = 0;
+
   function changeEventDisplay(data){
     var json = $.parseJSON(data);
     total += parseInt(json.Price - previousEventPrice);
@@ -149,6 +150,7 @@
     $("#display-total p").text("$ "+total+" HKD");
     $("#events-price").text("Event Price: $"+json.Price+"HKD");
   }
+
 		$.ajax({
 			type: "POST",
 			url: "../php/getEvents.php",
@@ -165,6 +167,7 @@
 				});
 			});
 		});
+
 		function changeRaceKitDisplay(data){
       var json = $.parseJSON(data);
       total += parseInt(json.Price - previousRaceKitPrice);
@@ -173,6 +176,7 @@
 			$("#racekits-image").attr("src",json.Photo);
       $("#racekits-price").text("RaceKit Price: $"+json.Price+"HKD");
 		}
+
 		$.ajax({
 			type: "POST",
 			url: "../php/getRaceKits.php",
@@ -190,6 +194,17 @@
 				});
 			});
 		});
+
+    function submitForm(){
+      var eventSelector = document.querySelector("#events-selection");
+      var eventName = eventSelector[eventSelector.selectedIndex].innerHTML;
+      var raceKitSelector = document.querySelector("#racekits-selection");
+      var raceKitName = raceKitSelector[raceKitSelector.selectedIndex].innerHTML;
+      var confirmResult = confirm("Are you sure you would like to continue?\n\nEvent: "+eventName+"\nRace Kit: "+raceKitName+"\nTotal Amount: $"+total+" HKD");
+      if(confirmResult == true){
+        registerEventForm.submitForm();
+      }
+    }
 	</script>
 
 </body>
