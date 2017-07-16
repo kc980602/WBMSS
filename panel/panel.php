@@ -8,15 +8,15 @@ class Panel{
   var $bottom;
   var $content;
   function __construct($curr, $page){
-    $content = "";
-    $Head = new PanelHead();
-    $Body = new PanelBody();
-    $Foot = new PanelFoot($curr, $page);
-    $top = "<div class='col-md-10 col-md-offset-1'>
+    $this->content = "";
+    $this->Head = new PanelHead();
+    $this->Body = new PanelBody();
+    $this->Foot = new PanelFoot($curr, $page);
+    $this->top = "<div class='col-md-10 col-md-offset-1'>
     <div class='panel panel-default panel-table'>";
-    $table = "<div class='panel-body'>
+    $this->table = "<div class='panel-body'>
       <table class='table table-striped table-bordered table-list'>";
-    $bottom = "</div></div>";
+    $this->bottom = "</div></div>";
   }
   function drawHeading($header, $create, $action){
   $itemHtml = <<<EOF
@@ -26,16 +26,16 @@ class Panel{
             <button type="button" class="btn btn-sm btn-primary btn-create" onclick="$action">$create</button>
           </div></div></div>
 EOF;
-  $top .= $itemHtml;
+    $this->top .= $itemHtml;
   }
   function tableEnd(){
-    $table .= $Head->getContent().$Body->getContent() ."</table></div>";
+    $this->table .= $this->Head->getContent().$this->Body->getContent() ."</table></div>";
   }
   function panelEnd(){
-    $content = $top.$Head->getContent().$table.$Foot->getContent().$bottom;
+    $this->content = $this->top.$this->table.$this->Foot->getContent().$this->bottom;
   }
   function drawPanel(){
-    echo $content;
+    echo $this->content;
   }
 }
 class PanelHead{
@@ -43,25 +43,25 @@ class PanelHead{
   var $foot;
   var $body;
   function __construct(){
-    $head = "<thead><tr>";
-    $foot = "</tr></thead>";
-    $body = "<th><em class='fa fa-cog'></em></th>";
+    $this->head = "<thead><tr>";
+    $this->foot = "</tr></thead>";
+    $this->body = "<th><em class='fa fa-cog'></em></th>";
   }
   function addItem($text){
-    $body .= "<th>$text</th>";
+    $this->body .= "<th>$text</th>";
   }
-  function addItemArray($text){
+  function addItemArray(array $text){
     if(is_array($text)){
       foreach($text as $value){
-        $body.="<th>$value</th>";
+        $this->addItem($value);
       }
     }
   }
   function draw(){
-    echo $head.$foot.$body;
+    echo $this->head.$this->body.$this->foot;
   }
   function getContent(){
-    return $head.$foot.$body;
+    return $this->head.$this->body.$this->foot;
   }
 }
 class PanelBody{
@@ -69,27 +69,27 @@ class PanelBody{
   var $foot;
   var $body;
   function __construct(){
-    $head = "<tbody>";
-    $body = "";
-    $foot = "</tbody>";
+    $this->head = "<tbody>";
+    $this->body = "";
+    $this->foot = "</tbody>";
   }
   function addRow($textArray){
     if(is_array($textArray)){
-      $body .= "<tr><td align='center'>
+      $this->body .= "<tr><td align='center'>
         <a class='btn btn-default'><em class='fa fa-pencil'></em></a>
         <a class='btn btn-danger'><em class='fa fa-trash'></em></a>
       </td>";
       foreach($textArray as $value){
-          $body .= "<td>$value</td>";
+          $this->body .= "<td>$value</td>";
       }
-      $body .= "</tr>";
+      $this->body .= "</tr>";
     }
   }
   function draw(){
-    echo $head.$body.$foot;
+    echo $this->head.$this->body.$this->foot;
   }
   function getContent(){
-    return $head.$body.$foot;
+    return $this->head.$this->body.$this->foot;
   }
 }
 class PanelFoot{
@@ -99,28 +99,29 @@ class PanelFoot{
   var $pageCount;
   var $currPage;
   function __construct($curr, $page){
-    $pageCount = $page;
-    $currPage = $curr;
-    $head = "<div class='panel-footer'><div class='row'>
+    $this->pageCount = $page;
+    $this->currPage = $curr;
+    $this->head = "<div class='panel-footer'><div class='row'>
         <div class='col col-xs-4'>Page $curr of $page
         </div><div class='col col-xs-8'>";
-    $body = "<ul class='pagination hidden-xs pull-right'>";
-    $foot = "</ul>
+    $this->body = "<ul class='pagination hidden-xs pull-right'>";
+    $this->foot = "</ul>
     <ul class='pagination visible-xs pull-right'>
         <li><a href='?prevpage=1'>&#8592;</a></li>
         <li><a href='?nextpage=1'>&#8594;</a></li>
     </ul></div></div></div>";
+    $this->drawPage();
   }
   function drawPage(){
-    for($i = 1; $i<=$pageCount; $i++){
-      $body .= "<li><a href='?page=$i'>$i</a></li>";
+    for($i = 1; $i<=$this->pageCount; $i++){
+      $this->body .= "<li><a href='?page=$i'>$i</a></li>";
     }
   }
   function draw(){
-    echo $head.$body.$foot;
+    echo $this->head.$this->body.$this->foot;
   }
   function getContent(){
-    return $head.$body.$foot;
+    return $this->head.$this->body.$this->foot;
   }
 }
  ?>
