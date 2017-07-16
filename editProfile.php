@@ -59,6 +59,34 @@ if(isset($_COOKIE['RunnerID'])){
   printFormItem("Country", "Country", "Please Enter Your Country", "text", "");
   printFormButton("submit", "SUBMIT", "submit", "");
 }
+if(isset($_POST['newPwd'])){
+  $runID = $_COOKIE['runnerID'];
+  explode($_POST);
+  $sql = "UPDATE Runner SET
+  Password = $newPwd
+  FirstName = $fname
+  LastName = $lname
+  Gender = $gender
+  DateOfBirth = $dob
+  Email = $email
+  Country = $country
+  WHERE RunnerID = $runID;";
+  mysqli_query($conn, $sql);
+  echo "<h3>Updated succuessfully!</h3>";
+}else if(isset($_POST['currPwd'])){
+  $runID = $_COOKIE['runnerID'];
+  explode($_POST);
+  $sql = "UPDATE Runner SET
+  FirstName = $fname
+  LastName = $lname
+  Gender = $gender
+  DateOfBirth = $dob
+  Email = $email
+  Country = $country
+  WHERE RunnerID = $runID;";
+  mysqli_query($conn, $sql);
+  echo "<h3>Updated succuessfully!</h3>";
+}
  ?>
 <!-- Button -->
 
