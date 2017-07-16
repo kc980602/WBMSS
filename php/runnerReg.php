@@ -17,12 +17,16 @@
   $input["Password"] = $pass1;
   $input["Comfirm Password"] = $pass2;
 
+  require_once("../php/dbInfo.php");
+
   $empty = false;
   $lengthError = false;
+  $uniqueEmail = false;
   $uploadOk = 0;
   $emptyField = "";
   $field = "";
   $length = 255;
+  //check empty input
   foreach($input as $inputName => $value) {
     if (!isset($value) || trim($value)==='') {
       $emptyField = $emptyField."\\n ".$inputName;
@@ -30,7 +34,23 @@
     }
   }
 
-  if (!$empty) {
+  //check email uniqueEmail
+  if (!$conn) {
+    die("Connection Fail". mysqli_connect_error());
+  } else {
+    $query = "SELECT Email FROM runner";
+    $result = mysqli_query($conn, $query);
+    if (mysqli_num_rows($result) > 0) {
+      while ($row = mysqli_fetch_assoc($result)) {
+        if ($row["Email"] == $email){
+          $uniqueEmail = true;
+        }
+      }
+    }
+  }
+
+  //check input length
+    if (!$empty) {
     if (strlen($input["First Name"]) > 255) {
       $field = "First Name"; $lengthError = true;
     }
@@ -64,23 +84,23 @@
     }
     // Check if file already exists
     if (file_exists($target_file)) {
-        showAlert("Sorry, file already exists.");
+        returnPage("Sorry, file already exists.");
         $uploadOk = 0;
     }
     // Check file size
     if ($_FILES["fileToUpload"]["size"] > 1000000) {
-        showAlert("Sorry, your photo is too large.");
+        returnPage("Sorry, your photo is too large.");
         $uploadOk = 0;
     }
     // Allow certain file formats
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
     && $imageFileType != "gif" ) {
-        showAlert("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
+        returnPage("Sorry, only JPG, JPEG, PNG & GIF files are allowed.");
         $uploadOk = 0;
     }
     // Check if $uploadOk is set to 0 by an error
     if ($uploadOk == 0) {
-        showAlert("Sorry, your photo was not uploaded.");
+        returnPage("Sorry, your photo was not uploaded.");
     // if everything is ok, try to upload file
     } else {
         $temp = explode(".", $_FILES["fileToUpload"]["tmp_name"]);
@@ -96,17 +116,18 @@
   }
 
   if($empty) {
-    showAlert("The following field must not be null or white space. $emptyField");
+    returnPage("The following field must not be null or white space. $emptyField");
   } else if ($lengthError){
-    showAlert("The field $field maximum length is $length chars.");
+    returnPage("The field $field maximum length is $length chars.");
   } else if (!filter_var($input["Email Address"], FILTER_VALIDATE_EMAIL)) {
-    showAlert("The email address you enter is not valid.");
+    returnPage("The email address you enter is not valid.");
   } else if (strcmp($input["Password"], $input["Comfirm Password"])) {
-    showAlert("The password do not match.");
+    returnPage("The password do not match.");
   } else if ($uploadOk == 0){
-    showAlert("Profile image not selected.");
+    returnPage("Profile image not selected.");
+  } else if ($uniqueEmail) {
+    returnPage("The email you use have been registered.");
   } else {
-    require_once("../php/dbInfo.php");
     if (!$conn) {
       die("Connection Fail". mysqli_connect_error());
     } else {
@@ -119,11 +140,12 @@
       }
     }
   }
-
   function showAlert($message) {
     echo "<script type='text/javascript'>alert('$message');</script>";
   }
-
+  function returnPage($message) {
+    echo "<script type='text/javascript'>alert('$message'); window.location.href='../html/runnerReg.html';</script>";
+  }
   ?>
 </body>
 </html>
