@@ -15,7 +15,7 @@ class Panel{
     $this->top = "<div class='col-md-10 col-md-offset-1'>
     <div class='panel panel-default panel-table'>";
     $this->table = "<div class='panel-body'>
-      <table id='table' class='table table-striped table-bordered table-list'>";
+      <table id='page$curr' class='table table-striped table-bordered table-list'>";
     $this->bottom = "</div></div>";
   }
   function drawHeading($header, $create, $action){
@@ -73,14 +73,17 @@ class PanelBody{
     $this->body = "";
     $this->foot = "</tbody>";
   }
-  function addRow($textArray){
+  function addRow($textArray, $tag){
     if(is_array($textArray)){
-      $this->body .= "<tr><td align='center'>
-        <a class='btn btn-default'><em class='fa fa-pencil'></em></a>
-        <a class='btn btn-danger'><em class='fa fa-trash'></em></a>
+      $this->body .= "<tr id='Row$tag'><td align='center'>
+        <a onclick='editRow($tag);' class='btn btn-default'><em class='fa fa-pencil'></em></a>
+        <a onclick='deleteRow($tag);'class='btn btn-danger'><em class='fa fa-trash'></em></a>
       </td>";
+      $i = 0;
       foreach($textArray as $value){
-          $this->body .= "<td>$value</td>";
+          $id = "Row".$tag."Col".$i;
+          $this->body .= "<td id='$id'>$value</td>";
+          $i++;
       }
       $this->body .= "</tr>";
     }
