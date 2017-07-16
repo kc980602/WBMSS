@@ -21,8 +21,8 @@
 <fieldset>
 <!-- form input-->
 <?php
-//require_once('lib/conn.php'); // MySQli Connection
-require_once('lib/printForm.php'); // PrintForm Library
+require_once('dbInfo.php'); // MySQli Connection
+require_once('../lib/printForm.php'); // PrintForm Library
 if(isset($_COOKIE['RunnerID'])){
   $sql = "SELECT * FROM Runner WHERE RunnerID = $_COOKIE[RunnerID];";
   $rs = mysqli_query($conn, $sql);
