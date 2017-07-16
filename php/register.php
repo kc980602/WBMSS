@@ -109,11 +109,11 @@
                 VALUES ('$pass1', '$fname', '$lname', '$Gender', '$DOB', '$email', '$ctry', '$piclocation')";
       mysqli_query($conn, $query);
       if(mysqli_affected_rows($conn)>0){
-        header("Location: ../index.html");
+        $alert = "Registration Success!\\nYou are a runner now. Login with: \\nEmail: $email";
+        echo "<script type='text/javascript'>alert('$alert'); window.location.href='../index.html';</script>";
       }
     }
   }
-
 
   function showAlert($message) {
     echo "<script type='text/javascript'>alert('$message');</script>";
