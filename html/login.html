@@ -75,11 +75,11 @@
 
   <div class="mainContent">
     <div class="container">
-      <form class="form-horizontal" action="../php/register.php" method="post" enctype="multipart/form-data">
+      <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data">
         <fieldset>
 
           <!-- Form Name -->
-          <legend>Register as a Runner</legend>
+          <legend>Login</legend>
 
           <!-- Text input-->
           <div class="form-group">
@@ -99,12 +99,31 @@
             </div>
           </div>
 
+          <!-- Multiple Radios (inline) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="type">User Type</label>
+            <div class="col-md-4">
+              <label class="radio-inline" for="Runner">
+                <input type="radio" name="type" id="runner" value="runner" checked="checked">
+                Runner
+              </label>
+              <label class="radio-inline" for="Volunteer">
+                <input type="radio" name="type" id="volunteer" value="volunteer">
+                Volunteer
+              </label>
+              <label class="radio-inline" for="Sponsor">
+                <input type="radio" name="type" id="sponsor" value="sponsor">
+                Sponsor
+              </label>
+            </div>
+          </div>
+
           <!-- Button -->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="login"></label>
+            <label class="col-md-4 control-label" for="submit"></label>
             <div class="col-md-4">
-              <input type="reset" style="margin-top:10%;float:left;" value="Reset" class="btn btn-primary">
-              <input type="submit" style="margin-top:10%;float:right;" value="Login" class="btn btn-primary">
+              <button id="reset" name="reset" type="reset" class="btn btn-primary">RESET</button>
+              <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
             </div>
           </div>
 
