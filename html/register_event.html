@@ -198,11 +198,22 @@
     function submitForm(){
       var eventSelector = document.querySelector("#events-selection");
       var eventName = eventSelector[eventSelector.selectedIndex].innerHTML;
+      var jsonEventID =  $.parseJSON(eventSelector[eventSelector.selectedIndex].value);
+      var eventID = jsonEventID.Name;
       var raceKitSelector = document.querySelector("#racekits-selection");
       var raceKitName = raceKitSelector[raceKitSelector.selectedIndex].innerHTML;
+      var jsonRaceKitID =  $.parseJSON(raceKitSelector[raceKitSelector.selectedIndex].value);
+      var raceKitID = jsonRaceKitID.Name;
       var confirmResult = confirm("Are you sure you would like to continue?\n\nEvent: "+eventName+"\nRace Kit: "+raceKitName+"\nTotal Amount: $"+total+" HKD");
       if(confirmResult == true){
-        registerEventForm.submitForm();
+        $.ajax({
+          method: "POST",
+          url: "../php/register_event.php",
+          data: { "event": eventID, "racekit": raceKitID, "payment": total}
+        })
+          .done(function( msg ) {
+            alert(msg);
+          });
       }
     }
 	</script>
