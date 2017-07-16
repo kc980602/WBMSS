@@ -83,7 +83,8 @@
   } else {
       $temp = explode(".", $_FILES["fileToUpload"]["tmp_name"]);
       $newfilename = round(microtime(true));
-      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], "../upload/profile_pic/" . $newfilename . "." . $imageFileType)) {
+      $piclocation =  "../upload/profile_pic/" . $newfilename . "." . $imageFileType;
+      if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $piclocation)) {
           //showAlert("The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.");
       } else {
           showAlert("Sorry, there was an error uploading your photo.");
@@ -99,9 +100,19 @@
   } else if (strcmp($input["Password"], $input["Comfirm Password"])) {
     showAlert("The password do not match.");
   } else if ($uploadOk != 0){
-    
-  }
+    require_once("../php/dbInfo.php");
 
+    if (!$conn) {
+      die("Connection Fail". mysqli_connect_error());
+    } else {
+      $query = "INSERT INTO runner (Password, FirstName, LastName, Gender, DateOfBirth, Email, Country, ProfilePicture)
+                VALUES ('$pass1', '$fname', '$lname', '$Gender', '$DOB', '$email', '$ctry', '$piclocation')";
+      mysqli_query($conn, $query);
+      if(mysqli_affected_rows($conn)>0){
+        header("Location: ../index.html");
+      }
+    }
+  }
 
 
   function showAlert($message) {
