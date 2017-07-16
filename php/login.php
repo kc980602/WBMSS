@@ -31,16 +31,35 @@
     if (!$conn) {
       die("Connection Fail". mysqli_connect_error());
     } else {
-      $query = "SELECT Email, Password FROM '$type' WHERE Email = '$email' AND Password = '$Password'";
+      $query = "SELECT * FROM $type WHERE Email = '$email' AND Password = '12'";
       $result = mysqli_query($conn, $query);
       $row = mysqli_fetch_array($result);
-      $active = $row['active'];
-      $count = mysqli_num_rows($result);
-      if($count == 1) {
-         //header("location: ../index.html");
-      }else {
-        //returnPage("The email and password is not correct.\\nPlease try again.");
-      }
+      if(mysqli_num_rows($result) == 1){
+        $name = "$row[FirstName] $row[LastName]";
+        $time = 3600*2;
+        setcookie("userName",$name, time()+$time);
+        switch ($type) {
+          case 'runner':
+            setcookie("userType","runner", time()+$time);
+            setcookie("userID",$row["RunnerID"], time()+3$time);
+            header("location: ../html/runnerindex.html");
+            break;
+          case 'volunteer':
+            setcookie("userType","volunteer", time()+$time);
+            setcookie("userID",$row["volunteerID"], time()+$time);
+            header("location: ../html/volunteerindex.html");
+            break;
+          case 'sponsor':
+            setcookie("userType","sponsor", time()+$time);
+            setcookie("userID",$row["SponsorID"], time()+$time);
+            header("location: ../html/sponsorindex.html");
+            break;
+          default:
+            echo "error";
+            break;
+        }
+      } else
+        returnPage("The email and password is not correct.\\nPlease enter again.");
    }
  }
 
