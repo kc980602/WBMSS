@@ -19,7 +19,6 @@
   <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
   <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="~/Scripts/AssetsBS3/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -115,7 +114,7 @@
                 <div class="input-group-addon">
                  <i class="fa fa-calendar"></i>
                 </div>
-                <input class="form-control" id="date1" name="date1" placeholder="DD/MM/YYYY" type="text"/>
+                <input class="form-control" id="DOB" name="DOB" placeholder="DD/MM/YYYY" type="text" data-name="DOB"/>
                </div>
            </div>
           </div>
@@ -188,13 +187,15 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
   <script>
   $(document).ready(function(){
-    var date_input=$('input[name="date"]'); //our date input has the name "date"
+    var date_input=$('input[name="DOB"]'); //our date input has the name "date"
     var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
     date_input.datepicker({
-      format: 'mm/dd/yyyy',
+      format: 'dd/mm/yyyy',
       container: container,
       todayHighlight: true,
       autoclose: true,
