@@ -78,11 +78,11 @@
         <fieldset>
 
           <!-- Form Name -->
-          <legend>Register as a Runner</legend>
+          <legend>Register as a Volunteer</legend>
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="fn">First name</label>
+            <label class="col-md-4 control-label" for="fname">First name</label>
             <div class="col-md-4">
               <input id="fname" name="fname" type="text" placeholder="first name" class="form-control input-md" required="">
 
@@ -91,7 +91,7 @@
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="ln">Last name</label>
+            <label class="col-md-4 control-label" for="lname">Last name</label>
             <div class="col-md-4">
               <input id="lname" name="lname" type="text" placeholder="last name" class="form-control input-md" required="">
 
@@ -113,23 +113,9 @@
             </div>
           </div>
 
-          <!-- Date input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="ln">Date of Birth</label>
-            <div class="col-md-4">
-               <div class="input-group">
-                <div class="input-group-addon">
-                 <i class="fa fa-calendar"></i>
-                </div>
-                <input class="form-control" id="DOB" name="DOB" placeholder="DD/MM/YYYY" type="text" data-name="DOB"/>
-               </div>
-           </div>
-          </div>
-
-
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="ln">Email Address</label>
+            <label class="col-md-4 control-label" for="email">Email Address</label>
             <div class="col-md-4">
               <input id="email" name="email" type="text" placeholder="email" class="form-control input-md" required="">
 
@@ -138,16 +124,7 @@
 
           <!-- Text input-->
           <div class="form-group">
-            <label class="col-md-4 control-label" for="ctry">Country</label>
-            <div class="col-md-4">
-              <input id="ctry" name="ctry" type="text" placeholder="Country" class="form-control input-md" required="">
-
-            </div>
-          </div>
-
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="pass2">Password</label>
+            <label class="col-md-4 control-label" for="pass1">Password</label>
             <div class="col-md-4">
               <input id="pass1" name="pass1" type="Password" placeholder="" class="form-control input-md" required="">
 
@@ -159,16 +136,6 @@
             <label class="col-md-4 control-label" for="pass2">Comfirm Password</label>
             <div class="col-md-4">
               <input id="pass2" name="pass2" type="Password" placeholder="" class="form-control input-md">
-
-            </div>
-          </div>
-
-          <!-- Picture Upload-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="add2">Upload Your Profile Picture</label>
-            <div class="col-md-4">
-              <input type="file" name="fileToUpload" id="fileToUpload">
-
 
             </div>
           </div>
@@ -192,21 +159,6 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-
-  <script>
-  $(document).ready(function(){
-    var date_input=$('input[name="DOB"]'); //our date input has the name "date"
-    var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-    date_input.datepicker({
-      format: 'dd/mm/yyyy',
-      container: container,
-      todayHighlight: true,
-      autoclose: true,
-    })
-  })
-  </script>
 
 </body>
 
