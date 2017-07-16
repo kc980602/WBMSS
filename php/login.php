@@ -37,20 +37,18 @@
       if(mysqli_num_rows($result) == 1){
         $name = "$row[FirstName] $row[LastName]";
         $time = 3600*2;
-        setcookie("userName",$name, time()+$time);
+        setcookie("userName", $name, time()+$time);
+        setcookie("userType", $type, time()+$time);
         switch ($type) {
           case 'runner':
-            setcookie("userType","runner", time()+$time);
-            setcookie("userID",$row["RunnerID"], time()+3$time);
-            header("location: ../html/runnerindex.html");
+            setcookie("userID",$row["RunnerID"], time()+$time);
+            header("location: ../html/runnerindex.php");
             break;
           case 'volunteer':
-            setcookie("userType","volunteer", time()+$time);
             setcookie("userID",$row["volunteerID"], time()+$time);
             header("location: ../html/volunteerindex.html");
             break;
           case 'sponsor':
-            setcookie("userType","sponsor", time()+$time);
             setcookie("userID",$row["SponsorID"], time()+$time);
             header("location: ../html/sponsorindex.html");
             break;

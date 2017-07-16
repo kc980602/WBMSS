@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <?php
+  if(isset($_COOKIE["userType"]) && isset($_COOKIE["userID"]) && isset($_COOKIE["userName"])) {
+       echo $_COOKIE["userType"];
+       echo $_COOKIE["userID"];
+       echo $_COOKIE["userName"];
+  } else {
+       echo "not set!";
+  }
+  ?>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -64,6 +73,16 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+  <script type="text/javascript">
+  function getCookie(name) {
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+      return unescape(arr[2]);
+   else
+      return null;
+    }
+  </script>
+
 
 </body>
 
