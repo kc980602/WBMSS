@@ -15,7 +15,7 @@ class Panel{
     $this->top = "<div class='col-md-10 col-md-offset-1'>
     <div class='panel panel-default panel-table'>";
     $this->table = "<div class='panel-body'>
-      <table class='table table-striped table-bordered table-list'>";
+      <table id='table' class='table table-striped table-bordered table-list'>";
     $this->bottom = "</div></div>";
   }
   function drawHeading($header, $create, $action){
@@ -69,7 +69,7 @@ class PanelBody{
   var $foot;
   var $body;
   function __construct(){
-    $this->head = "<tbody>";
+    $this->head = "<tbody id='tbody'>";
     $this->body = "";
     $this->foot = "</tbody>";
   }
