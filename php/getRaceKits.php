@@ -7,16 +7,16 @@
 	}
 	$records = mysqli_query($conn,"SELECT * FROM `racekitchoice`");
 	
-	$events = "{";
+	$racekits = "{";
 	while($record = mysqli_fetch_assoc($records)){
-		if($events != "{"){
-			$events .= ",";
+		if($racekits != "{"){
+			$racekits .= ",";
 		}
-		$events .= "\"$record[RaceKitID]\":[{\"Name\":\"$record[Name]\",\"Price\":\"$record[Price]\",\"Photo\":\"$record[Photo]\"}]";
+		$racekits .= "\"$record[RaceKitID]\":[{\"Name\":\"$record[Name]\",\"Price\":\"$record[Price]\",\"Photo\":\"$record[Photo]\"}]";
 	}
-	$events .= "}";
+	$racekits .= "}";
 	
-	$eventsJSON =json_encode($events);
+	$racekitsJSON =json_encode($racekits);
 	header("Content-Type: application/json");
-	echo $eventsJSON;
+	echo $racekitsJSON;
 ?>

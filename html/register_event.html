@@ -31,6 +31,11 @@
       border: 2px solid;
       border-radius: 5px;
     }
+    #disregister:hover{
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -97,22 +102,29 @@
 
           <!-- Selection-->
           <div class="form-group">
-			<img width="40" height ="40" class="img-rounded" id="racekits-image">
-            <label class="col-md-4 control-label" for="ln">Race Kit</label>
-            <div class="col-md-4">
-			<select class="form-control" name="racekit" onchange="changeRaceKitDisplay(value);" id="racekits-selection">
+      			<img width="40" height ="40" class="img-rounded" id="racekits-image">
+                  <label class="col-md-4 control-label" for="ln">Race Kit</label>
+                  <div class="col-md-4">
+      			     <select class="form-control" name="racekit" onchange="changeRaceKitDisplay(value);" id="racekits-selection">
 
-				</select>
-
+				        </select>
+          </div>
+          </div>
+          <p style="margin-left: 35%;" id="racekits-price"></p>
+          <!-- Eegistered Events Selection -->
+          <div class="form-group" style=".center-block();">
+            <label class="col-md-4 control-label" for="ln">My Regisration</label>
+            <div class="col-md-6">
+             <select multiple class="form-control" name="registration" id="registrations-selection">
+               </select>
             </div>
 
           </div>
-          <p style="margin-left: 35%;" id="racekits-price"></p>
-
+          <img src="../image/delete.png" id="disregister" width="25" height="25" onclick="disregister();">
           <!-- Total Amount -->
           <div id="display-total">
             <h2>Total Amount:</h2>
-            <p>$  HKD</p>
+            <p>$ 0 HKD</p>
           </div>
 
           <!-- Button -->
@@ -194,6 +206,60 @@
 				});
 			});
 		});
+
+    function paddingLeft(str,lenght){
+    	if(str.length >= lenght)
+    	return str;
+    	else{
+        while (str.lenght < lenght) {
+          str = " "+str;
+        }
+        return str;
+      }
+    }
+    function refreshRegistration(){
+      document.querySelector("#registrations-selection").innerHTML = "";
+      $.ajax({
+        type: "POST",
+        url: "../php/getRegistrations.php",
+        dataType: "json"
+      }).done(function(data){
+        var json = $.parseJSON(data);
+        $.each(json, function(index,value){
+          var id = index;
+          $.each(value, function(index,value){
+            var eventName = value.eventName;
+            var racekitName = value.racekitName;
+            var DateOfEvent = value.DateOfEvent;
+            var display = eventName+" | "+racekitName+" | "+DateOfEvent;
+            $("<option value='{\"ID\":\""+id+"\",\"eventName\":\""+value.eventName+"\",\"racekitName\":\""+value.racekitName+"\",\"DateOfEvent\":\""+value.DateOfEvent+"\"}'>"+display+"</option>").appendTo("#registrations-selection");
+          });
+        });
+      });
+    }
+    refreshRegistration();
+
+    function disregister(){
+      var registrationSelector = document.querySelector("#registrations-selection");
+      if(registrationSelector[registrationSelector.selectedIndex] != undefined){
+        var json=  $.parseJSON(registrationSelector[registrationSelector.selectedIndex].value);
+        var regID = json.ID;
+        var confirmResult = confirm("Are you sure you would like to disregister the event?\n\nEvent: "+json.eventName+"\nRace Kit: "+json.racekitName+"\nDate Of Event: "+json.DateOfEvent+"\n\nALERT: This operation can not be undone.");
+        if(confirmResult == true){
+          $.ajax({
+            method: "POST",
+            url: "../php/disregister_event.php",
+            data: { "regID":regID }
+          })
+            .done(function( msg ) {
+              alert(msg);
+              refreshRegistration();
+            });
+        }
+      }else{
+        alert("Please first select an registered event.");
+      }
+    }
 
     function submitForm(){
       var eventSelector = document.querySelector("#events-selection");
