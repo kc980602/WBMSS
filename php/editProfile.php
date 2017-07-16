@@ -21,8 +21,8 @@
 <fieldset>
 <!-- form input-->
 <?php
-//require_once('lib/conn.php'); // MySQli Connection
-require_once('lib/printForm.php'); // PrintForm Library
+require_once('dbInfo.php'); // MySQli Connection
+require_once('../lib/printForm.php'); // PrintForm Library
 if(isset($_COOKIE['RunnerID'])){
   $sql = "SELECT * FROM Runner WHERE RunnerID = $_COOKIE[RunnerID];";
   $rs = mysqli_query($conn, $sql);
@@ -63,12 +63,12 @@ if(isset($_POST['newPwd'])){
   $runID = $_COOKIE['runnerID'];
   explode($_POST);
   $sql = "UPDATE Runner SET
-  Password = $newPwd
-  FirstName = $fname
-  LastName = $lname
-  Gender = $gender
-  DateOfBirth = $dob
-  Email = $email
+  Password = $newPwd,
+  FirstName = $fname,
+  LastName = $lname,
+  Gender = $gender,
+  DateOfBirth = $dob,
+  Email = $email,
   Country = $country
   WHERE RunnerID = $runID;";
   mysqli_query($conn, $sql);
@@ -77,12 +77,12 @@ if(isset($_POST['newPwd'])){
   $runID = $_COOKIE['runnerID'];
   explode($_POST);
   $sql = "UPDATE Runner SET
-  FirstName = $fname
-  LastName = $lname
-  Gender = $gender
-  DateOfBirth = $dob
-  Email = $email
-  Country = $country
+  FirstName = $fname,
+  LastName = $lname,
+  Gender = $gender,
+  DateOfBirth = $dob,
+  Email = $email,
+  Country = $country,\
   WHERE RunnerID = $runID;";
   mysqli_query($conn, $sql);
   echo "<h3>Updated succuessfully!</h3>";
