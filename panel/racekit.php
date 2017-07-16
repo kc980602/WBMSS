@@ -63,7 +63,10 @@
           var editInput = document.createElement("input");
           var editTd = document.getElementById("Row"+num.toString()+"Col"+i.toString());
           editInput.setAttribute("name", "edit"+i);
-          editInput.setAttribute("type", "text");
+          if(i==0)
+            editInput.setAttribute("type", "hidden");
+          else
+            editInput.setAttribute("type", "text");
           editInput.setAttribute("form", "editRow"+num.toString());
           editInput.setAttribute("class", "form-control input-md");
           editInput.setAttribute("value", editTd.innerHTML);
