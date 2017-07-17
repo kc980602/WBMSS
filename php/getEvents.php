@@ -5,19 +5,9 @@
 	if(!$conn){
 		die("Connection fail: ".mysqli_connect_error());
 	}
-	$records;
-	if(isset($_COOKIE["userID"])){
-		$records = mysqli_query($conn,"SELECT event.*
-		FROM eventregister
-		INNER JOIN event 
-		ON eventregister.EventID != event.EventID
-		WHERE eventregister.RunnerID = $_COOKIE[userID]
-		");
-	}else{
-		$records = mysqli_query($conn,"SELECT event.* 
-		FROM event");
-	}
-	
+	$records = mysqli_query($conn,"SELECT event.* 
+				FROM event");
+
 	$events = "{";
 	while($record = mysqli_fetch_assoc($records)){
 		if($events != "{"){
