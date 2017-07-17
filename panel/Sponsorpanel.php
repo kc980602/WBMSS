@@ -73,10 +73,10 @@ class PanelBody{
     $this->body = "";
     $this->foot = "</tbody>";
   }
-  function addRow($textArray){
+  function addRow($textArray,$tag){
     if(is_array($textArray)){
       $this->body .= "<tr><td align='center'>
-        <a class='btn btn-danger'><em class='fa fa-trash'></em></a>
+        <a href='../php/SponsorDel.php?id=$tag' class='btn btn-danger'><em class='fa fa-trash'></em></a>
       </td>";
       foreach($textArray as $value){
           $this->body .= "<td>$value</td>";

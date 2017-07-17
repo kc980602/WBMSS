@@ -1,39 +1,20 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!-- <script>
-      function newRow(num){
-        var row = document.createElement("tr");
-        var form = document.createElement("form");
-        var tbody = document.getElementById("tbody");
-        form.setAttribute("method","post");
-        form.setAttribute("id", "newRow");
-        row.appendChild(form);
-        for(var i=0;i<num;i++){
-          var td = document.createElement("td");
-          var input = document.createElement("input");
-          input.setAttribute("name", "new"+i);
-          input.setAttribute("type", "text");
-          input.setAttribute("form", "newRow");
-          input.setAttribute("class", "form-control input-md");
-          td.appendChild(input);
-          row.appendChild(td);
-        }
-        tbody.appendChild(row);
-        row = document.createElement("tr");
-        td = document.createElement("td");
-        var button = document.createElement("button");
-        button.setAttribute("class", "btn btn-primary");
-        button.setAttribute("onclick", "sendNewRow();");
-        button.innerHTML = "SUBMIT";
-        td.appendChild(button);
-        row.appendChild(td);
-        tbody.appendChild(row);
-      }
-      function sendNewRow(){
-        document.getElementById("newRow").submit();
-      }
-    </script> -->
+    <script>
+    function deleteRow(num){
+      var deleteForm = document.createElement("form");
+      deleteForm.setAttribute("method", "post");
+      deleteForm.setAttribute("action", target);
+      var deleteInput = document.createElement("input");
+      deleteInput.setAttribute("name", "deleteID");
+      deleteInput.setAttribute("type", "hidden");
+      deleteInput.setAttribute("value", num.toString());
+      deleteForm.appendChild(deleteInput);
+      document.body.appendChild(deleteForm);
+      deleteForm.submit();
+    }
+    </script>
 
   </head>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
@@ -57,7 +38,7 @@ if(isset($_GET['page'])){
 } else {
   $page = 1;
 }
-$sql = "SELECT * FROM `sponsorrecord`, `sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID";
+$sql = "SELECT * FROM `sponsorrecord`,`sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID";
 $rc = mysqli_query($conn, $sql);
 
 
@@ -73,7 +54,7 @@ $panel->Head->addItemArray($col);
 
 while ($rows = mysqli_fetch_assoc($rc)) {
 $row = array($rows['SponsorID'], $rows['Company']);
-$panel->Body->addRow($row);
+$panel->Body->addRow($row,$rows['SponsorID']);
 }
 $panel->tableEnd();
 $panel->panelEnd();
