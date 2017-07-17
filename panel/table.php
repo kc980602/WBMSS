@@ -46,7 +46,7 @@ class PanelHead{
     $this->body = "";
   }
   function addItem($text, $name){
-    $this->body .= "<th><a href='?sort=$name'>$text</th>";
+    $this->body .= "<th class='sort-head'><a href='?sort=$name'>$text</th>";
   }
   function addItemArray(array $text){
     if(is_array($text)){

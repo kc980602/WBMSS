@@ -4,6 +4,11 @@
 <link href="../css/bootstrap.min.css" rel="stylesheet">
 <link href="../css/Navbar_menu.css" rel="stylesheet">
 <link href="../js/bootstrap.min.js" rel="stylesheet">
+<style>
+  .sort-head:hover{
+    background-color: gray;
+  }
+</style>
 </head>
 <body>
 <div class="container">
