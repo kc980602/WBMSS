@@ -21,7 +21,7 @@
     <div class="wrap">
       <nav class="navbar navbar-default navbar-fixed-top" role="navigation"  style=" height:60px;">
       <div id ="top-menu" class="container-fluid active" >
-          <a class="navbar-brand-custom" href="#" style="font-size:24px"><img style="max-width:135px; margin-top: 0px;"src="../image/logo-2017-full-colour.png">
+          <a class="navbar-brand-custom" href="#" style="font-size:24px; color:#404040;"><img style="max-width:135px; margin-top: 0px;"src="../image/logo-2017-full-colour.png">
             Runner System
           </a>
 
@@ -89,19 +89,68 @@
   </aside>
 
   <!--Body content-->
-  <div class="content">
-    <div class="top-bar">
-      <a href="#menu" class="side-menu-link burger">
-        <span class='burger_inside' id='bgrOne'></span>
-        <span class='burger_inside' id='bgrTwo'></span>
-        <span class='burger_inside' id='bgrThree'></span>
-      </a>
-    </div>
-    <section class="content-inner">
-      <h2>Sample</h2>
-      <h3>A responsive Top and Side Menu, resize your browser to find out</h3>
-    </section>
-  </div>
+  <div class="mainContent">
+    <div class="container">
+      <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data">
+        <fieldset>
+
+          <!-- Multiple Radios (inline) -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="type">User Type</label>
+            <div class="col-md-4">
+              <label class="radio-inline" for="Runner">
+                <input type="radio" name="type" id="runner" value="runner" checked="checked">
+                Runner
+              </label>
+              <label class="radio-inline" for="Volunteer">
+                <input type="radio" name="type" id="volunteer" value="volunteer">
+                Volunteer
+              </label>
+              <label class="radio-inline" for="Sponsor">
+                <input type="radio" name="type" id="sponsor" value="sponsor">
+                Sponsor
+              </label>
+            </div>
+          </div>
+
+          <!-- Form Name -->
+          <legend>Login</legend>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="fn">ID</label>
+            <div class="col-md-4">
+              <input id="id" name="id" type="text" placeholder="your id" class="form-control input-md" required="">
+
+            </div>
+          </div>
+
+          <!-- Text input-->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="ln">Password</label>
+            <div class="col-md-4">
+              <input id="Password" name="Password" type="Password" placeholder="password" class="form-control input-md" required="">
+
+            </div>
+          </div>
+
+          <!-- Button -->
+          <div class="form-group">
+            <label class="col-md-4 control-label" for="submit"></label>
+            <div class="col-md-4">
+              <button id="reset" name="reset" type="reset" class="btn btn-primary">RESET</button>
+              <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
+            </div>
+          </div>
+
+        </fieldset>
+      </form>
+
+
+
+    </div> <!-- /container -->
+  </div> <!-- /mainContent -->
+
 
 </div>
 

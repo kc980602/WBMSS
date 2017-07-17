@@ -14,19 +14,10 @@
   <!-- Custom styles for this template -->
   <link href="../css/bootstrap.min.css" rel="stylesheet">
   <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-  <link href="../css/custom.css" rel="stylesheet">
+  <link href="../css/custom_system.css" rel="stylesheet">
   <link href="../js/bootstrap.min.js" rel="stylesheet">
-  <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
   <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="~/Scripts/AssetsBS3/ie8-responsive-file-warning.js"></script><![endif]-->
-
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
 </head>
 
 <body>
@@ -72,82 +63,74 @@
     </div>
   </nav><!--/.nav-collapse -->
 
-  <div class="mainContent">
-    <div class="container">
-      <form class="form-horizontal" action="../php/sponsorReg.php" method="post" enctype="multipart/form-data">
-        <fieldset>
 
-          <!-- Form Name -->
-          <legend>Register as a Sponsor</legend>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="fname">First name</label>
-            <div class="col-md-4">
-              <input id="fname" name="fname" type="text" placeholder="first name" class="form-control input-md" required="">
 
-            </div>
+  <div class="container" style="margin-top:54px;">
+    <form class="form-horizontal" style="width:15%; margin-right=0px; padding-right=0px;">
+      <fieldset>
+
+        <div class="SideContainer">
+          <ul class="nav bs-sidenav">
+            <li>
+              <a href="#glyphicons">Glyphicons</a>
+              <ul class="nav">
+                <li><a href="#glyphicons-glyphs">Available glyphs</a></li>
+                <li><a href="#glyphicons-how-to-use">How to use</a></li>
+                <li><a href="#glyphicons-examples">Examples</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div> <!-- /SideContainer -->
+
+
+
+
+      </fieldset>
+    </form>
+
+    <form class="form-horizontal " style="width:80%;">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>Login</legend>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="fn">ID</label>
+          <div class="col-md-4">
+            <input id="id" name="id" type="text" placeholder="your id" class="form-control input-md" required="">
+
           </div>
+        </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="lname">Last name</label>
-            <div class="col-md-4">
-              <input id="lname" name="lname" type="text" placeholder="last name" class="form-control input-md" required="">
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="ln">Password</label>
+          <div class="col-md-4">
+            <input id="Password" name="Password" type="Password" placeholder="password" class="form-control input-md" required="">
 
-            </div>
           </div>
+        </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="email">Email Address</label>
-            <div class="col-md-4">
-              <input id="email" name="email" type="text" placeholder="email" class="form-control input-md" required="">
-
-            </div>
+        <!-- Button -->
+        <div class="form-group">
+          <label class="col-md-4 control-label" for="submit"></label>
+          <div class="col-md-4">
+            <button id="reset" name="reset" type="reset" class="btn btn-primary">RESET</button>
+            <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
           </div>
+        </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="comp">Company</label>
-            <div class="col-md-4">
-              <input id="comp" name="comp" type="text" placeholder="company name" class="form-control input-md" required="">
 
-            </div>
-          </div>
+      </fieldset>
+    </form>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="pass1">Password</label>
-            <div class="col-md-4">
-              <input id="pass1" name="pass1" type="Password" placeholder="" class="form-control input-md" required="">
+  </div> <!-- /container -->
 
-            </div>
-          </div>
 
-          <!-- Text input-->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="pass2">Comfirm Password</label>
-            <div class="col-md-4">
-              <input id="pass2" name="pass2" type="Password" placeholder="" class="form-control input-md">
 
-            </div>
-          </div>
 
-          <!-- Button -->
-          <div class="form-group">
-            <label class="col-md-4 control-label" for="submit"></label>
-            <div class="col-md-4">
-              <button id="reset" name="reset"  type="reset" class="btn btn-primary">RESET</button>
-              <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
-            </div>
-          </div>
-
-        </fieldset>
-      </form>
-
-    </div> <!-- /container -->
-  </div> <!-- /mainContent -->
 
   <!-- Bootstrap core JavaScript
   ================================================== -->

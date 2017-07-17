@@ -13,8 +13,9 @@
 }
 
 legend {
+  float: right;
   display: block;
-  width: 100%;
+  width: 70%;
   padding: 0;
   margin-bottom: 20px;
   font-size: 30px;
@@ -111,11 +112,11 @@ legend {
 .wrap #side-menu {
   position: absolute;
   z-index: -1;
-  background: #404040;
+  background: #FFFFFF;
   width: 20em;
   padding-top: 65px;
   padding-right: 20px;
-  padding-left: 10px;
+  padding-left: 40px;
   float: left;
   display: block;
   left: 0;
@@ -132,22 +133,24 @@ legend {
   transition: all 0.3s ease-out;
 }
 .wrap .content .top-bar {
+  margin-top: 70px;
   height: 40px;
   background: #ddd;
 }
 .wrap .content .content-inner {
   padding: 0;
-  margin: 0;
+  margin-top: 60px;
   background: #fff;
   padding-left: 20px;
   display: block;
   position: absolute;
   height: 900px;
+  max-width:
   width: 100%;
 }
 .wrap ul.accordion {
   width: 100%;
-  background: transparent;
+  background: #404040;
 }
 .wrap ul.accordion .link {
   cursor: pointer;

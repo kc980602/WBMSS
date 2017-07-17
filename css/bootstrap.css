@@ -6468,7 +6468,7 @@ button.close {
 .container-fluid:after,
 .row:before,
 .row:after,
-.form-horizontal .form-group:before,
+.col-md-4 .form-group:before,
 .form-horizontal .form-group:after,
 .btn-toolbar:before,
 .btn-toolbar:after,
