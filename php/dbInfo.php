@@ -1,6 +1,6 @@
 <?php
-		$hostname = "wbmss.mysql.database.azure.com";
+		$hostname = "wbmss.mysql.database.azure.com:3306";
 		$username = "KC@wbmss";
 		$password = "gpa4.04.0";
-		$database = "projectdb";
+		$database = "projectDB";
 ?>
