@@ -91,7 +91,7 @@
                   <div class="panel-heading">
                     <div class="row">
                       <div class="col col-xs-6">
-                        <h3 class="panel-title">Panel Heading</h3>
+                        <h3 class="panel-title">Event Records</h3>
                       </div>
                       <div class="col col-xs-6 text-right">
                       </div>
@@ -167,7 +167,7 @@
             var CheckInTime = value.CheckInTime.split(":");
             var html = "<tr id='records-"+i+"'>"+
                        "<td align='center'>"+
-                       "<a class='btn btn-default' value='hi' onclick='unlock("+i+")'><em class='fa fa-pencil'></em></a>"+
+                       "<a class='btn btn-default' onclick='unlock("+i+","+value.RegID+")'><em class='fa fa-pencil'></em></a>"+
                        "</td>"+
                        "<td>"+value.RunnerID+"</td>"+
                        "<td>"+value.FirstName+" "+value.LastName+"</td>"+
@@ -180,12 +180,34 @@
         });
     }
 
-    function unlock(num){
-      if($("#records-"+num).attr("enable") != true){
+    function unlock(num,regID){
+      if($("#records-"+num).prop("enable") != true){
         for(var i = 0; i<= $("#records-"+num+" input").length; i ++){
           jQuery($("#records-"+num+" input")[i]).prop("disabled", false);
         }
-        $("#records-"+num).attr("enable",true); 
+        $("#records-"+num).prop("enable",true);
+      }else{
+        var TopSpeed = jQuery($("#records-"+num+" input")[0]).prop("value");
+        var FinishTime = jQuery($("#records-"+num+" input")[1]).prop("value")+":"+jQuery($("#records-"+num+" input")[2]).prop("value")+":"+jQuery($("#records-"+num+" input")[3]).prop("value");
+        var CheckInTime = jQuery($("#records-"+num+" input")[4]).prop("value")+":"+jQuery($("#records-"+num+" input")[5]).prop("value");
+        if(TopSpeed.includes("undefined")){
+          TopSpeed = "";
+        }
+        if(FinishTime.includes("undefined")){
+          FinishTime = "";
+        }
+        if(CheckInTime.includes("undefined")){
+          CheckInTime = "";
+        }
+        $.ajax({
+            method: "POST",
+            url: "../php/updateEventRecord.php",
+            data: { "RegID":regID,"TopSpeed":TopSpeed,"FinishTime":FinishTime,"CheckInTime":CheckInTime }
+          })
+          .done(function(msg) {
+            alert(msg);
+            refreshRecords();
+          });
       }
     }
     refreshRecords();
