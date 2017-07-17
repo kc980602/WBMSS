@@ -4,7 +4,7 @@
 
     if($_COOKIE["userType"] == "runner"){
 
-      require_once("bdInfo.php");
+      require_once("dbInfo.php");
       $conn = mysqli_connect($hostname, $username, $password, $database);
       if(!$conn){
         die("Connection fail: ".mysqli_connect_error());

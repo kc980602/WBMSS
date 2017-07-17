@@ -56,12 +56,12 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#"><img style="max-width:110px; margin-top: -11px;"src="../image/logo-2017-full-colour.png"></a>
+        <a class="navbar-brand" href="../index.html"><img style="max-width:110px; margin-top: -11px;"src="../image/logo-2017-full-colour.png"></a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="index.html"><img style="max-width:30px; margin-top: -5px;"src="../image/img_home.png"></a></li>
-          <li><a href="../index.html#aboutUs">About Us</a></li>
+          <li class="active"><a href="../index.html"><img style="max-width:30px; margin-top: -5px;"src="../image/img_home.png"></a></li>
+          <li><a href="#aboutUs">About Us</a></li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Event Info <span class="caret"></span></a>
             <ul class="dropdown-menu" role="menu">
@@ -72,10 +72,7 @@
           <li><a href="#calculator">Calculator</a></li>
 
         </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/bs3/Examples/navbar">Login</a></li>
-          <li><a href="html/register.html">Register</a></li>
-        </ul>
+
       </div><!--/.nav-collapse -->
     </div>
   </nav>
@@ -162,23 +159,27 @@
     $("#display-total p").text("$ "+total+" HKD");
     $("#events-price").text("Event Price: $"+json.Price+"HKD");
   }
-
-		$.ajax({
-			type: "POST",
-			url: "../php/getEvents.php",
-			dataType: "json"
-		}).done(function(data){
-			var json = $.parseJSON(data);
-			$.each(json, function(index,value){
-				var name = index;
-				$.each(value, function(index,value){
-          if(name=="1"){
-            changeEventDisplay("{\"Name\":\""+name+"\",\"Price\":\""+value.Price+"\"}");
-          }
-					$("<option value='{\"Name\":\""+name+"\",\"Price\":\""+value.Price+"\"}'>"+value.Name+"</option>").appendTo("#events-selection");
-				});
-			});
-		});
+    function refreshEvents(){
+      $.ajax({
+  			type: "POST",
+  			url: "../php/getEvents.php",
+  			dataType: "json"
+  		}).done(function(data){
+  			var json = $.parseJSON(data);
+        var item = 0;
+  			$.each(json, function(index,value){
+  				var name = index;
+          item++;
+  				$.each(value, function(index,value){
+            if(item==1){
+              changeEventDisplay("{\"Name\":\""+name+"\",\"Price\":\""+value.Price+"\"}");
+            }
+  					$("<option value='{\"Name\":\""+name+"\",\"Price\":\""+value.Price+"\"}'>"+value.Name+"</option>").appendTo("#events-selection");
+  				});
+  			});
+  		});
+    }
+    refreshEvents();
 
 		function changeRaceKitDisplay(data){
       var json = $.parseJSON(data);
@@ -255,6 +256,7 @@
             .done(function( msg ) {
               alert(msg);
               refreshRegistration();
+              refreshEvents();
             });
         }
       }else{
