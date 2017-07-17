@@ -66,7 +66,7 @@ $col = array(
   "Race Kit ID" => "RaceKitID",
   "Race Kit Sent" => "RaceKitSent");
 $panel = new Panel($page,$totalPage);
-$panel->drawHeading("Race Kit Record");
+$panel->drawHeading("Event Record");
 $panel->Head->addItemArray($col);
 while($rs = mysqli_fetch_assoc($rc)){
   $i=0;

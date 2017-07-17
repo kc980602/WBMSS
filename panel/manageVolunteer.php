@@ -114,7 +114,7 @@ if(isset($_GET['page'])){
   setcookie("racekitPage", 1, time()+3600);
   $page = 1;
 }
-$tb = "Runner";
+$tb = "Volunteer";
 $sql = "SELECT * FROM $tb";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
@@ -122,10 +122,10 @@ $totalPage = ceil($rowCount/20);
 $topNum = 0 + ($page-1) * 20;
 mysqli_data_seek($rc, $topNum);
 $printCount = 0;
-$col = array("RunnerID", "VolunteerID", "Password", "FirstName",
-"LastName","Gender", "DateOfBirth", "Email", "Country", "ProfilePicture");
+$col = array("VolunteerID", "Password", "FirstName",
+"LastName","Gender", "Email");
 $panel = new Panel($page,$totalPage);
-$panel->drawHeading("Runner List","NEW","newRow(10);");
+$panel->drawHeading("Volunteer List","NEW","newRow(6);");
 $panel->Head->addItemArray($col);
 while($rs = mysqli_fetch_assoc($rc)){
   $i=0;
