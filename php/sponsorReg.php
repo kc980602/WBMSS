@@ -6,6 +6,7 @@
   <title>Process Registration</title>
 </head>
 <body>
+
   <?php
   extract($_POST);
   $input["First Name"] = $fname;
@@ -15,11 +16,8 @@
   $input["Password"] = $pass1;
   $input["Comfirm Password"] = $pass2;
 
-  require_once("../php/dbInfo.php");
-
   $empty = false;
   $lengthError = false;
-  $uniqueEmail = false;
   $emptyField = "";
   $field = "";
   $length = 255;
@@ -28,21 +26,6 @@
     if (!isset($value) || trim($value)==='') {
       $emptyField = $emptyField."\\n ".$inputName;
       $empty = true;
-    }
-  }
-
-  //check email uniqueEmail
-  if (!$conn) {
-    die("Connection Fail". mysqli_connect_error());
-  } else {
-    $query = "SELECT Email FROM sponsor";
-    $result = mysqli_query($conn, $query);
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        if ($row["Email"] == $email){
-          $uniqueEmail = true;
-        }
-      }
     }
   }
 
@@ -73,18 +56,19 @@
     returnPage("The email address you enter is not valid.");
   } else if (strcmp($input["Password"], $input["Comfirm Password"])) {
     returnPage("The password do not match.");
-  } else if ($uniqueEmail) {
-    returnPage("The email you use have been registered.");
   } else {
+    require_once("../php/dbInfo.php");
     if (!$conn) {
       die("Connection Fail". mysqli_connect_error());
     } else {
       $query = "INSERT INTO sponsor (Password, FirstName, LastName, Company, Email)
                 VALUES ('$pass1', '$fname', '$lname', '$comp', '$email')";
       mysqli_query($conn, $query);
+      $pkID = mysqli_insert_id($conn);
       if(mysqli_affected_rows($conn)>0){
-        $alert = "Registration Success!\\nYou are a sponsor now. Login with: \\nEmail: $email";
-        echo "<script type='text/javascript'>alert('$alert'); window.location.href='../index.html';</script>";
+        setcookie("afterRegID",$pkID, time()+3600, "/");
+        setcookie("afterRegtype","sponsor", time()+3600, "/");
+        header("location: ../html/afterReg.php");
       }
     }
   }
@@ -96,5 +80,6 @@
     echo "<script type='text/javascript'>alert('$message'); window.location.href='../html/sponsorReg.html';</script>";
   }
   ?>
+
 </body>
 </html>
