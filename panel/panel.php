@@ -117,7 +117,12 @@ class PanelFoot{
   }
   function drawPage(){
     for($i = 1; $i<=$this->pageCount; $i++){
-      $this->body .= "<li><a href='?page=$i'>$i</a></li>";
+      if($i==$this->currPage){
+          $style = "style='background-color: lightgreen;'";
+      }else{
+          $style = "";
+      }
+      $this->body .= "<li><a href='?page=$i' $style>$i</a></li>";
     }
   }
   function draw(){
