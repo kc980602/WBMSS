@@ -16,7 +16,7 @@
       }
     </style>
     <script>
-    var target = "runnerUpdate.php";
+    var target = "volunteerUpdate.php";
     function newRow(num){
       var row = document.createElement("tr");
       var form = document.createElement("form");
@@ -74,16 +74,13 @@
       EditButton.setAttribute("onclick", "sendEditRow("+num.toString()+");");
       EditButton.innerHTML = "SUBMIT";
       editRow.appendChild(EditButton);
-      for(var i=0;i<10;i++){
+      for(var i=0;i<6;i++){
         var editInput = document.createElement("input");
         var editTd = document.getElementById("Row"+num.toString()+"Col"+i.toString());
         editInput.setAttribute("name", "edit"+i);
         if(i==0)
           editInput.setAttribute("readonly", "");
-        if(i!=6)
-          editInput.setAttribute("type", "text");
-        else
-          editInput.setAttribute("type", "date");
+        editInput.setAttribute("type", "text");
         editInput.setAttribute("form", "editRow"+num.toString());
         editInput.setAttribute("class", "form-control input-md");
         editInput.setAttribute("value", editTd.innerHTML);
@@ -100,8 +97,8 @@
 <div class="container">
     <div class="row">
       <p></p>
-      <h1>Manage Runner</h1>
-      <h3>Create, Update, Delete a runner. Assign or Unassign runner to a Volunteer.</h3>
+      <h1>Manage Volunteer</h1>
+      <h3>Create, Update, Delete a Volunteer.</h3>
 <?php
 require_once('../php/dbInfo.php'); // MySQLi Connection
 require_once('panel.php');

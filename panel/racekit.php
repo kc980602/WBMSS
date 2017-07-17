@@ -6,6 +6,15 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/Navbar_menu.css" rel="stylesheet">
     <link href="../js/bootstrap.min.js" rel="stylesheet">
+    <style>
+      .container{
+        width: 100%;
+      }
+      .row{
+        margin-left:1%;
+        margin-right:1%;
+      }
+    </style>
     <script>
       var target = "racekitManage.php";
       function newRow(num){
