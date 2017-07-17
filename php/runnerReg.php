@@ -121,7 +121,7 @@
       if(mysqli_affected_rows($conn)>0){
         setcookie("afterRegID",$pkID, time()+3600, "/");
         setcookie("afterRegtype","runner", time()+3600, "/");
-        header("location: ../html/afterReg.php");
+        header("location: ../php/afterReg.php");
       }
     }
   }
