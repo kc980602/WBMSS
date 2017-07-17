@@ -11,7 +11,7 @@ if(isset($_POST['deleteID'])){
   $sql = "SELECT * FROM $table WHERE RaceKitID = $_POST[deleteID]";
   if(mysqli_query($conn, $sql)!=null){
     $sql = "DELETE FROM $table WHERE RaceKitID = $_POST[deleteID]";
-    $rc = mysqli_quert($conn, $sql);
+    $rc = mysqli_query($conn, $sql);
     if(mysqli_affected_rows($rc)>0){
       header("location: racekit.php?update=deleted");
     }

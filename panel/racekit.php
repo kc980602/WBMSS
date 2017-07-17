@@ -64,9 +64,8 @@
           var editTd = document.getElementById("Row"+num.toString()+"Col"+i.toString());
           editInput.setAttribute("name", "edit"+i);
           if(i==0)
-            editInput.setAttribute("type", "hidden");
-          else
-            editInput.setAttribute("type", "text");
+            editInput.setAttribute("readonly", "");
+          editInput.setAttribute("type", "text");
           editInput.setAttribute("form", "editRow"+num.toString());
           editInput.setAttribute("class", "form-control input-md");
           editInput.setAttribute("value", editTd.innerHTML);
@@ -95,11 +94,11 @@ require_once('../php/dbInfo.php'); // MySQLi Connection
 require_once('panel.php');
 if(isset($_GET['page'])){
   $page = $_GET['page'];
-  setcookie("page", $page, time()+3600);
-} else if(isset($_COOKIE['page'])){
-  $page = $_COOKIE['page'];
+  setcookie("racekitPage", $page, time()+3600);
+} else if(isset($_COOKIE['racekitPage'])){
+  $page = $_COOKIE['racekitPage'];
 }else{
-  setcookie("page", 1, time()+3600);
+  setcookie("racekitPage", 1, time()+3600);
   $page = 1;
 }
 $sql = "SELECT * FROM racekitchoice";
@@ -107,9 +106,9 @@ $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
 $rowCount = 1;
 $totalPage = ceil($rowCount/20);
-$topNum = 1 + ($page-1) * 20;
+$topNum = 0 + ($page-1) * 50;
+mysqli_data_seek($rc, $topNum);
 $printCount = 0;
-$rc = mysqli_query($conn, $sql);
 $col = array("ID", "Name","Description","Price","Photo");
 $panel = new Panel($page,$totalPage);
 $panel->drawHeading("Race Kit Record","NEW","newRow(5);");
