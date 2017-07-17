@@ -1,14 +1,29 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="../css/panel_table.css" rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Navbar_menu.css" rel="stylesheet">
+    <link href="../js/bootstrap.min.js" rel="stylesheet">
+    <style>
+      .container{
+        width: 100%;
+      }
+      .row{
+        margin-left:1%;
+        margin-right:1%;
+      }
+    </style>
     <script>
+      var target = "racekitManage.php";
       function newRow(num){
         var row = document.createElement("tr");
         var form = document.createElement("form");
         var tbody = document.getElementById("tbody");
         form.setAttribute("method","post");
         form.setAttribute("id", "newRow");
-        form.setAttribute("action", "racekitManage.php");
+        form.setAttribute("action", target);
         row.appendChild(form);
         for(var i=0;i<num;i++){
           var td = document.createElement("td");
@@ -37,7 +52,7 @@
       function deleteRow(num){
         var deleteForm = document.createElement("form");
         deleteForm.setAttribute("method", "post");
-        deleteForm.setAttribute("action", "racekitManage.php");
+        deleteForm.setAttribute("action", target);
         var deleteInput = document.createElement("input");
         deleteInput.setAttribute("name", "deleteID");
         deleteInput.setAttribute("type", "hidden");
@@ -51,7 +66,7 @@
         var editRow = document.getElementById("Row"+num.toString());
         editForm.setAttribute("method","post");
         editForm.setAttribute("id", "editRow"+num.toString());
-        editForm.setAttribute("action", "racekitManage.php");
+        editForm.setAttribute("action", target);
         editRow.appendChild(editForm);
         var editTd = document.createElement("td");
         var EditButton = document.createElement("button");
@@ -78,11 +93,7 @@
       }
     </script>
   </head>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-<link href="../css/panel_table.css" rel='stylesheet' type='text/css'>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/Navbar_menu.css" rel="stylesheet">
-<link href="../js/bootstrap.min.js" rel="stylesheet">
+<body>
 <div class="container">
     <div class="row">
 
@@ -101,10 +112,10 @@ if(isset($_GET['page'])){
   setcookie("racekitPage", 1, time()+3600);
   $page = 1;
 }
-$sql = "SELECT * FROM racekitchoice";
+$tb = "racekitchoice";
+$sql = "SELECT * FROM $tb";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
-$rowCount = 1;
 $totalPage = ceil($rowCount/20);
 $topNum = 0 + ($page-1) * 50;
 mysqli_data_seek($rc, $topNum);
@@ -127,4 +138,5 @@ $panel->drawPanel();
 
     </div>
 </div>
+</body>
 </html>

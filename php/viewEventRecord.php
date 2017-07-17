@@ -53,7 +53,6 @@ $tb = "EventRegister";
 $sql = "SELECT * FROM $tb $sort $order";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
-$rowCount = 1;
 $totalPage = ceil($rowCount/50);
 $topNum = 0 + ($page-1) * 50;
 mysqli_data_seek($rc, $topNum);
@@ -67,11 +66,14 @@ $col = array(
   "Race Kit ID" => "RaceKitID",
   "Race Kit Sent" => "RaceKitSent");
 $panel = new Panel($page,$totalPage);
-$panel->drawHeading("Race Kit Record");
+$panel->drawHeading("Event Record");
 $panel->Head->addItemArray($col);
 while($rs = mysqli_fetch_assoc($rc)){
-  $row = array($rs["RunnerID"], $rs["EventID"], $rs["CheckInTime"],
-              $rs["FinishTime"], $rs["TopSpeed"], $rs["RaceKitID"], $rs["RaceKitSent"]);
+  $i=0;
+  foreach($col as $key => $value){
+    $row[$i] = $rs[$value];
+    $i++;
+  }
   $panel->Body->addRow($row, $rs['RaceKitID']);
   $printCount++;
   if($printCount==50) break;
