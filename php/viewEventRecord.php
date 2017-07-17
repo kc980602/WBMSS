@@ -50,7 +50,7 @@ function sortColumn($col){
   $order = $_COOKIE['order'];
 }
 $tb = "EventRegister";
-$sql = "SELECT * FROM $tb";
+$sql = "SELECT * FROM $tb $sort $order";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
 $rowCount = 1;
