@@ -57,7 +57,7 @@ if(isset($_GET['page'])){
 } else {
   $page = 1;
 }
-$sql = "SELECT * FROM `sponsorrecord`";
+$sql = "SELECT * FROM `sponsorrecord`, `sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID";
 $rc = mysqli_query($conn, $sql);
 
 
@@ -65,14 +65,14 @@ $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
 require_once('Sponsorpanel.php');
 
-$col = array("SponsorID", "CharityID");
+$col = array("SponsorID", "Company");
 $panel = new Panel($page,1);
 
 $panel->drawHeading("Sponsor Record","NEW","newRow(5);");
 $panel->Head->addItemArray($col);
 
 while ($rows = mysqli_fetch_assoc($rc)) {
-$row = array($rows['SponsorID'], $rows['CharityID']);
+$row = array($rows['SponsorID'], $rows['Company']);
 $panel->Body->addRow($row);
 }
 $panel->tableEnd();
