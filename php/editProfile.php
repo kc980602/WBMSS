@@ -23,8 +23,13 @@
 <?php
 require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
-if(isset($_COOKIE['RunnerID'])){
-  $sql = "SELECT * FROM Runner WHERE RunnerID = $_COOKIE[RunnerID];";
+if(isset($_COOKIE['userType'])){
+  if($_COOKIE['userType']!="runner"){
+    header("location: ")
+  }
+}
+if(isset($_COOKIE['userID'])){
+  $sql = "SELECT * FROM Runner WHERE RunnerID = $_COOKIE[userID];";
   $rs = mysqli_query($conn, $sql);
   $rc = mysqli_fetch_assoc($rs);
   echo "<legend id='form_name'>$rc[FirstName] $rc[LastName] Profile</legend>";
@@ -52,7 +57,7 @@ if(isset($_COOKIE['RunnerID'])){
     printFormItem("confirmPwd", "ConfirmPassword", "Re-type Your new password again", "password", "");
   }
   printFormItem("fname", "First Name", "Please Enter Your First Name", "text", "");
-  printFormItem("lname", "First Name", "Please Enter Your First Name", "text", "");
+  printFormItem("lname", "Last Name", "Please Enter Your Last Name", "text", "");
   printRadio("gender","Gender","Male","Male","Female","Female", "");
   printFormItem("dob", "Date of Birth", "YYYY/MM/DD", "date", "");
   printFormItem("email", "Email", "Please Enter Your Email Address", "email", "");
@@ -60,7 +65,7 @@ if(isset($_COOKIE['RunnerID'])){
   printFormButton("submit", "SUBMIT", "submit", "");
 }
 if(isset($_POST['newPwd'])){
-  $runID = $_COOKIE['runnerID'];
+  $runID = $_COOKIE['userID'];
   explode($_POST);
   $sql = "UPDATE Runner SET
   Password = $newPwd,
@@ -74,7 +79,7 @@ if(isset($_POST['newPwd'])){
   mysqli_query($conn, $sql);
   echo "<h3>Updated succuessfully!</h3>";
 }else if(isset($_POST['currPwd'])){
-  $runID = $_COOKIE['runnerID'];
+  $runID = $_COOKIE['userID'];
   explode($_POST);
   $sql = "UPDATE Runner SET
   FirstName = $fname,
