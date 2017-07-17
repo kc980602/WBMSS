@@ -24,7 +24,7 @@ if(isset($_POST['deleteID'])){
     $new5, $new6, $new7, $new8, $new9)";
     $rc = mysqli_query($conn, $sql);
     if(mysqli_affected_rows($rc)>0){
-      header("location: racekit.php?update=created");
+      header("location: manageRunner.php?update=created");
     }
   }
 } else if(isset($_POST['edit0'])){
