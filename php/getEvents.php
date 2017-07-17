@@ -5,7 +5,13 @@
 	if(!$conn){
 		die("Connection fail: ".mysqli_connect_error());
 	}
-	$records = mysqli_query($conn,"SELECT * FROM `event`");
+	$condition = "";
+	if(isset($_COOKIE["userID"])){
+		$condition = "INNER JOIN `eventregister.RunnerID` != $_COOKIE[userID]";
+	}
+	$records = mysqli_query($conn,"SELECT event.* 
+	FROM `event`
+	$condition");
 	
 	$events = "{";
 	while($record = mysqli_fetch_assoc($records)){

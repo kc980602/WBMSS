@@ -118,9 +118,9 @@
              <select multiple class="form-control" name="registration" id="registrations-selection">
                </select>
             </div>
-
+            <img src="../image/delete.png" id="disregister" width="25" height="25" onclick="disregisterEvent();">
           </div>
-          <img src="../image/delete.png" id="disregister" width="25" height="25" onclick="disregister();">
+
           <!-- Total Amount -->
           <div id="display-total">
             <h2>Total Amount:</h2>
@@ -222,6 +222,7 @@
       $.ajax({
         type: "POST",
         url: "../php/getRegistrations.php",
+        data: {"condition":"eventregister.RunnerID = $_COOKIE[userID]"},
         dataType: "json"
       }).done(function(data){
         var json = $.parseJSON(data);
@@ -232,19 +233,19 @@
             var racekitName = value.racekitName;
             var DateOfEvent = value.DateOfEvent;
             var display = eventName+" | "+racekitName+" | "+DateOfEvent;
-            $("<option value='{\"ID\":\""+id+"\",\"eventName\":\""+value.eventName+"\",\"racekitName\":\""+value.racekitName+"\",\"DateOfEvent\":\""+value.DateOfEvent+"\"}'>"+display+"</option>").appendTo("#registrations-selection");
+            $("<option value='{\"ID\":\""+id+"\",\"eventName\":\""+eventName+"\",\"racekitName\":\""+eventName.replace("\'"," ")+"\",\"DateOfEvent\":\""+DateOfEvent+"\"}'>"+display+"</option>").appendTo("#registrations-selection");
           });
         });
       });
     }
     refreshRegistration();
 
-    function disregister(){
+    function disregisterEvent(){
       var registrationSelector = document.querySelector("#registrations-selection");
       if(registrationSelector[registrationSelector.selectedIndex] != undefined){
         var json=  $.parseJSON(registrationSelector[registrationSelector.selectedIndex].value);
         var regID = json.ID;
-        var confirmResult = confirm("Are you sure you would like to disregister the event?\n\nEvent: "+json.eventName+"\nRace Kit: "+json.racekitName+"\nDate Of Event: "+json.DateOfEvent+"\n\nALERT: This operation can not be undone.");
+        var confirmResult = confirm("Are you sure you would like to disregister the event?\n\nEvent: "+json.eventName+"\nRace Kit: "+json.racekitName+"\nDate Of Event: "+json.DateOfEvent+"\n\nALERT: This operation can not be undone and refunded.");
         if(confirmResult == true){
           $.ajax({
             method: "POST",
@@ -279,6 +280,9 @@
         })
           .done(function( msg ) {
             alert(msg);
+            if(msg == "You have successfully registered the event!"){
+              window.location.assign("../php/payment.php?amount="+total+"&location=../html/register_event.html");
+            }
           });
       }
     }

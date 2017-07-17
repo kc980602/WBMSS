@@ -1,6 +1,6 @@
 <?php
   extract($_POST);
-  if(isset($_COOKIE["userID"],$_COOKIE["userType"],$event,$racekit,$payment)){
+  if(isset($_COOKIE["userID"],$_COOKIE["userType"],$regID)){
 
     if($_COOKIE["userType"] == "runner"){
 
@@ -10,9 +10,10 @@
         die("Connection fail: ".mysqli_connect_error());
       }
 
-      $record=mysqli_query($conn,"INSERT INTO `eventregister` (`RunnerID`,`EventID`,`RaceKitID`,`PaymentTotal`) VALUES ('$_COOKIE[userID]','$event','$racekit','$payment')");
+      $record=mysqli_query($conn,"DELETE FROM `eventregister`
+        WHERE (RegID = $regID AND RunnerID = $_COOKIE[userID])");
       if(mysqli_affected_rows($conn) > 0){
-        echo "You have successfully registered the event!";
+        echo "You have successfully disregistered the event.";
       }else{
         echo "The operation is failed.\nPlease try again later.";
       }
