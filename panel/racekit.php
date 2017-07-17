@@ -7,13 +7,14 @@
     <link href="../css/Navbar_menu.css" rel="stylesheet">
     <link href="../js/bootstrap.min.js" rel="stylesheet">
     <script>
+      var target = "racekitManage.php";
       function newRow(num){
         var row = document.createElement("tr");
         var form = document.createElement("form");
         var tbody = document.getElementById("tbody");
         form.setAttribute("method","post");
         form.setAttribute("id", "newRow");
-        form.setAttribute("action", "racekitManage.php");
+        form.setAttribute("action", target);
         row.appendChild(form);
         for(var i=0;i<num;i++){
           var td = document.createElement("td");
@@ -42,7 +43,7 @@
       function deleteRow(num){
         var deleteForm = document.createElement("form");
         deleteForm.setAttribute("method", "post");
-        deleteForm.setAttribute("action", "racekitManage.php");
+        deleteForm.setAttribute("action", target);
         var deleteInput = document.createElement("input");
         deleteInput.setAttribute("name", "deleteID");
         deleteInput.setAttribute("type", "hidden");
@@ -56,7 +57,7 @@
         var editRow = document.getElementById("Row"+num.toString());
         editForm.setAttribute("method","post");
         editForm.setAttribute("id", "editRow"+num.toString());
-        editForm.setAttribute("action", "racekitManage.php");
+        editForm.setAttribute("action", target);
         editRow.appendChild(editForm);
         var editTd = document.createElement("td");
         var EditButton = document.createElement("button");
