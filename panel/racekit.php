@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
+    <link href="../css/panel_table.css" rel='stylesheet' type='text/css'>
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/Navbar_menu.css" rel="stylesheet">
+    <link href="../js/bootstrap.min.js" rel="stylesheet">
     <script>
       function newRow(num){
         var row = document.createElement("tr");
@@ -78,11 +83,7 @@
       }
     </script>
   </head>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
-<link href="../css/panel_table.css" rel='stylesheet' type='text/css'>
-<link href="../css/bootstrap.min.css" rel="stylesheet">
-<link href="../css/Navbar_menu.css" rel="stylesheet">
-<link href="../js/bootstrap.min.js" rel="stylesheet">
+<body>
 <div class="container">
     <div class="row">
 
@@ -101,10 +102,10 @@ if(isset($_GET['page'])){
   setcookie("racekitPage", 1, time()+3600);
   $page = 1;
 }
-$sql = "SELECT * FROM racekitchoice";
+$tb = "racekitchoice";
+$sql = "SELECT * FROM $tb";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
-$rowCount = 1;
 $totalPage = ceil($rowCount/20);
 $topNum = 0 + ($page-1) * 50;
 mysqli_data_seek($rc, $topNum);
@@ -127,4 +128,5 @@ $panel->drawPanel();
 
     </div>
 </div>
+</body>
 </html>
