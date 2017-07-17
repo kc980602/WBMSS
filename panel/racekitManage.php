@@ -17,7 +17,7 @@ if(isset($_POST['deleteID'])){
     }
   }
 } else if(isset($_POST['new0'])){
-  $sql = "SELECT * FROM $table WHERE RaceKitID = $POST[new0]";
+  $sql = "SELECT * FROM $table WHERE RaceKitID = $_POST[new0]";
   if(mysqli_query($conn, $sql)==null){
     explode($_POST);
     $sql = "INSERT INTO $table VALUES($new0, $new1, $new2, $new3)";
@@ -27,7 +27,7 @@ if(isset($_POST['deleteID'])){
     }
   }
 } else if(isset($_POST['edit0'])){
-  $sql = "SELECT * FROM $table WHERE RaceKitID = $POST[edit0]";
+  $sql = "SELECT * FROM $table WHERE RaceKitID = $_POST[edit0]";
   if(mysqli_query($conn, $sql)!=null){
     $sql = "UPDATE $table SET
     Name = $edit1,
