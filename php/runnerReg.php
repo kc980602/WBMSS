@@ -17,11 +17,10 @@
   $input["Password"] = $pass1;
   $input["Comfirm Password"] = $pass2;
 
-  require_once("../php/dbInfo.php");
+
 
   $empty = false;
   $lengthError = false;
-  $uniqueEmail = false;
   $uploadOk = 0;
   $emptyField = "";
   $field = "";
@@ -31,21 +30,6 @@
     if (!isset($value) || trim($value)==='') {
       $emptyField = $emptyField."\\n ".$inputName;
       $empty = true;
-    }
-  }
-
-  //check email uniqueEmail
-  if (!$conn) {
-    die("Connection Fail". mysqli_connect_error());
-  } else {
-    $query = "SELECT Email FROM runner";
-    $result = mysqli_query($conn, $query);
-    if (mysqli_num_rows($result) > 0) {
-      while ($row = mysqli_fetch_assoc($result)) {
-        if ($row["Email"] == $email){
-          $uniqueEmail = true;
-        }
-      }
     }
   }
 
@@ -125,18 +109,19 @@
     returnPage("The password do not match.");
   } else if ($uploadOk == 0){
     returnPage("Profile image not selected.");
-  } else if ($uniqueEmail) {
-    returnPage("The email you use have been registered.");
   } else {
+    require_once("../php/dbInfo.php");
     if (!$conn) {
       die("Connection Fail". mysqli_connect_error());
     } else {
       $query = "INSERT INTO runner (Password, FirstName, LastName, Gender, DateOfBirth, Email, Country, ProfilePicture)
                 VALUES ('$pass1', '$fname', '$lname', '$Gender', '$DOB', '$email', '$ctry', '$piclocation')";
       mysqli_query($conn, $query);
+      $pkID = mysqli_insert_id($conn);
       if(mysqli_affected_rows($conn)>0){
-        $alert = "Registration Success!\\nYou are a runner now. Login with: \\nEmail: $email";
-        echo "<script type='text/javascript'>alert('$alert'); window.location.href='../index.html';</script>";
+        setcookie("afterRegID",$pkID, time()+3600, "/");
+        setcookie("afterRegtype","runner", time()+3600, "/");
+        header("location: ../html/afterReg.php");
       }
     }
   }
