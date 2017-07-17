@@ -1,28 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="image/mss2017icon.ico">
-
-    <title>Update Profile</title>
-
-
-    <!-- Custom styles for this template -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/Navbar_menu.css" rel="stylesheet">
-    <link href="js/bootstrap.min.js" rel="stylesheet">
-</head>
-<body>
+<?php
+require_once('dbInfo.php'); // MySQli Connection
+require_once('../lib/printForm.php'); // PrintForm Library
+printHead();
+printBody();?>
 <form class="form-horizontal">
 <fieldset>
 <!-- form input-->
 <?php
-require_once('dbInfo.php'); // MySQli Connection
-require_once('../lib/printForm.php'); // PrintForm Library
+if(isset($_COOKIE['userType'])){
+  if($_COOKIE['userType']!="sponsor"){
+    header("location: ../index.html");
+  }
+}else{
+  header("location: ../index.html");
+}
 if(isset($_COOKIE['userID'])){
   $sql = "SELECT * FROM Sponsor WHERE SponsorID = $_COOKIE[userID];";
   $rs = mysqli_query($conn, $sql);
@@ -37,33 +28,54 @@ if(isset($_COOKIE['userID'])){
   }
   printFormItem("fname", "First Name", "Please Enter Your First Name", "text", $rc['FirstName']);
   printFormItem("lname", "Last Name", "Please Enter Your Last Name", "text", $rc['LastName']);
+  printFormItem("company", "Company", "Please Enter Your Company Name", "text", $rc['Company']);
   printFormItem("email", "Email", "Please Enter Your Email Address", "email", $rc['Email']);
   printFormButton("submit", "SUBMIT", "submit", "");
   if(isset($_POST['newPwd'])){
     $runID = $_COOKIE['userID'];
     explode($_POST);
-    $sql = "UPDATE Runner SET
+    $sql = "UPDATE Sponsor SET
     Password = $newPwd,
     FirstName = $fname,
     LastName = $lname,
-    Email = $email,
-    Country = $country
-    WHERE RunnerID = $runID;";
-    mysqli_query($conn, $sql);
-    echo "<h3>Updated succuessfully!</h3>";
+    Company = $company,
+    Email = $email
+    WHERE RunnerID = $runID AND
+    Password = $currPwd;";
+    $rc = mysqli_query($conn, $sql);
+    if(mysqli_affected_row($rc)>0){
+      $echo "<h3>Updated succuessfully!</h3>";
+    }
   }else if(isset($_POST['currPwd'])){
     $runID = $_COOKIE['userID'];
     explode($_POST);
-    $sql = "UPDATE Runner SET
+    $sql = "UPDATE Sponsor SET
     FirstName = $fname,
     LastName = $lname,
-    Gender = $gender,
-    DateOfBirth = $dob,
-    Email = $email,
-    Country = $country,\
-    WHERE RunnerID = $runID;";
-    mysqli_query($conn, $sql);
-    echo "<h3>Updated succuessfully!</h3>";
+    Company = $company,
+    Email = $email
+    WHERE RunnerID = $runID AND
+    Password = $currPwd;";
+    $rc = mysqli_query($conn, $sql);
+    if(mysqli_affected_row($rc)>0){
+      $echo "<h3>Updated succuessfully!</h3>";
+    }
   }
 }
+</fieldset>
+</form>
+<script>
+function changePwd(){
+  var form = document.createElement("form");
+  form.setAttribute("method","post");
+  var gate = document.createElement("input");
+  gate.setAttribute("type", "hidden");
+  gate.setAttribute("value", "Y");
+  gate.setAttribute("name", "updatePwd");
+  form.appendChild(gate);
+  document.body.appendChild(form);
+  form.submit();
+}
+</script>
+printEnd();
 ?>
