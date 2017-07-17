@@ -86,7 +86,7 @@ function validateForm() {
           </div>
           <div class="expiry-date-group form-group">
               <label for="ExpiryDate">Expiry date</label>
-              <input id="ExpiryDate" class="form-control" type="text" placeholder="MM / YY" maxlength="10"></input>
+              <input id="ExpiryDate" class="form-control" type="text" placeholder="YYYY / MM / DD" maxlength="10"></input>
           </div>
           <div class="security-code-group form-group">
               <label for="SecurityCode">Security code</label>

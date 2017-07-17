@@ -165,6 +165,7 @@
   			url: "../php/getEvents.php",
   			dataType: "json"
   		}).done(function(data){
+        document.querySelector("#events-selection").innerHTML = "";
   			var json = $.parseJSON(data);
         var item = 0;
   			$.each(json, function(index,value){
@@ -227,16 +228,14 @@
         dataType: "json"
       }).done(function(data){
         var json = $.parseJSON(data);
-        $.each(json, function(index,value){
-          var id = index;
-          $.each(value, function(index,value){
+          $.each(json, function(index,value){
+            var id = value.RegID;
             var eventName = value.eventName;
             var racekitName = value.racekitName;
             var DateOfEvent = value.DateOfEvent;
             var display = eventName+" | "+racekitName+" | "+DateOfEvent;
             $("<option value='{\"ID\":\""+id+"\",\"eventName\":\""+eventName+"\",\"racekitName\":\""+eventName.replace("\'"," ")+"\",\"DateOfEvent\":\""+DateOfEvent+"\"}'>"+display+"</option>").appendTo("#registrations-selection");
           });
-        });
       });
     }
     refreshRegistration();
