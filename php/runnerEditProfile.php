@@ -1,14 +1,12 @@
 <?php
 require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
-printSystemPageStart("../php/runnerEditProfile.php");
+printSystemPageStart("../php/runnerEditProfile.php", "../php/runnerindex.php");
 printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
+printSystemPageSideMenuOtion("../php/runnerEventRecord.php", "Event Record");
 
 printSystemPageSideMenuOtionClose("Runner System", "../php/runnerEditProfile.php");
-?>
 
-<!-- form input-->
-<?php
 if(isset($_COOKIE['userType'])){
   if($_COOKIE['userType']!="runner")
     returnPage("You are not a runner!");

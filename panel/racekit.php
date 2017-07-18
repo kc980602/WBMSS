@@ -9,9 +9,6 @@
     <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
     <style>
-      .container{
-        width: 100%;
-      }
       .row{
         margin-left:1%;
         margin-right:1%;
@@ -117,7 +114,7 @@
 <body>
   <?php
   require_once('../lib/container.php');
-  cBody();
+  cBody("../php/volunteerindex.php");
   ?>
 <div class="container">
     <div class="row">

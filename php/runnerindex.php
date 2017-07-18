@@ -3,7 +3,7 @@
   if ($_COOKIE['userType']=="runner") {
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
-    printSystemPageStart("../php/runnerEditProfile.php");
+    printSystemPageStart("../php/runnerEditProfile.php", "../php/runnerindex.php");
     printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
     printSystemPageSideMenuOtion("../php/runnerEventRecord.php", "Event Record");
 

@@ -3,7 +3,7 @@
   if ($_COOKIE['userType']=="sponsor") {
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
-    printSystemPageStart("../php/sponsorEditProfile.php");
+    printSystemPageStart("../php/sponsorEditProfile.php", "../php/sponsorindex.php");
     printSystemPageSideMenuOtion("../html/sponsorship.html", "Sponsor Runner");
     printSystemPageSideMenuOtion("../panel/SponsorDel.php", "Sponsor Record");
     printSystemPageSideMenuOtionClose("Sponsor System", "../php/sponsorEditProfile.php");

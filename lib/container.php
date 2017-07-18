@@ -1,6 +1,6 @@
 <?php
 
-function cBody() {
+function cBody($link) {
   $body = <<< EOF
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -16,26 +16,9 @@ function cBody() {
   </div>
   <div id="navbar" class="navbar-collapse collapse">
   <ul class="nav navbar-nav">
-  <li class="active"><a href="../index.html"><img style="max-width:30px; margin-top: -5px;"src="../image/img_home.png"></a></li>
-  <li><a href="../index.html#aboutUs">About Us</a></li>
-  <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Event Info <span class="caret"></span></a>
-  <ul class="dropdown-menu" role="menu">
-  <li><a href="#routing">Routing</a></li>
+  <li class="active"><a href="$link"><img style="max-width:30px; margin-top: -5px;"src="../image/img_home.png"></a></li>
   </ul>
-  </li>
-  <li><a href="#tranning">Tranning</a></li>
-  <li><a href="#calculator">Calculator</a></li>
-  </ul>
-  <ul class="nav navbar-nav navbar-right">
-  <li><a href="../html/login.html">Login</a></li>
-  <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Register<span class="caret"></span></a>
-  <ul class="dropdown-menu" role="menu">
-  <li><a href="../html/runnerReg.html">Runner</a></li>
-  <li><a href="../html/volunteerReg.html">Volunteer</a></li>
-  <li><a href="../html/sponsorReg.html">Sponsor</a></li>
-  </ul>
+
   </li>
   </ul>
   </div>
