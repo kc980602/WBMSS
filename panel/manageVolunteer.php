@@ -98,6 +98,19 @@
       document.getElementById("editRow"+num.toString()).submit();
     }
     </script>
+    <?php
+    require_once('../php/dbInfo.php'); // MySQLi Connection
+    require_once('panel.php');
+    if(isset($_GET['page'])){
+      $page = $_GET['page'];
+      setcookie("mvPage", $page, time()+3600);
+    } else if(isset($_COOKIE['mvPage'])){
+      $page = $_COOKIE['mvPage'];
+    }else{
+      setcookie("mvPage", 1, time()+3600);
+      $page = 1;
+    }
+     ?>
   </head>
   <body>
     <?php require_once('../lib/container.php');
@@ -108,17 +121,7 @@
       <h1>Manage Volunteer</h1>
       <h3>Create, Update, Delete a Volunteer.</h3>
 <?php
-require_once('../php/dbInfo.php'); // MySQLi Connection
-require_once('panel.php');
-if(isset($_GET['page'])){
-  $page = $_GET['page'];
-  setcookie("racekitPage", $page, time()+3600);
-} else if(isset($_COOKIE['racekitPage'])){
-  $page = $_COOKIE['racekitPage'];
-}else{
-  setcookie("racekitPage", 1, time()+3600);
-  $page = 1;
-}
+
 if(isset($_GET['update'])){
   $msg = $_GET['update'];
   switch($msg){
