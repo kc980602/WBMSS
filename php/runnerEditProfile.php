@@ -65,7 +65,7 @@ if(isset($_POST['newPwd'])){
   Password = $currPwd;";
   $rc = mysqli_query($conn, $sql);
   if(mysqli_affected_row($rc)>0){
-    $echo "<h3>Updated succuessfully!</h3>";
+    echo "<h3>Updated succuessfully!</h3>";
   }
 }else if(isset($_POST['currPwd'])){
   $runID = $_COOKIE['userID'];
@@ -81,7 +81,7 @@ if(isset($_POST['newPwd'])){
   Password = $currPwd;";
   $rc = mysqli_query($conn, $sql);
   if(mysqli_affected_row($rc)>0){
-    $echo "<h3>Updated succuessfully!</h3>";
+    echo "<h3>Updated succuessfully!</h3>";
   }
 }
  ?>
