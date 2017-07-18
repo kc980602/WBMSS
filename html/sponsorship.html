@@ -103,8 +103,9 @@
                             <th><em class="fa fa-cog"></em></th>
                             <th class="hidden-xs">RunnerID</th>
                             <th>Full Name</th>
-							<th>Registered Event(s)</th>
+							              <th>Registered Event(s)</th>
                             <th>Top Speed</th>
+                            <th>Total Sponsored</th>
                         </tr>
                       </thead>
                       <tbody id="records-table">
@@ -167,7 +168,7 @@
             var value = json[i];
             var FinishTime =  value.FinishTime.split(":");
             var CheckInTime = value.CheckInTime.split(":");
-
+            console.log(value.Amount);
             var html = "<tr id='records-"+i+"' style='cursor:pointer' onclick=\"document.getElementsByName('runner-selection')["+index+"].checked = true;selectedRegID = $('#records-"+i+" #RegID')[0].dataset.regid\">"+
                        "<td align='center'>"+
                        "<a class='btn btn-default'><input type='radio' name='runner-selection'></a>"+
@@ -176,6 +177,7 @@
                        "<td>"+value.FirstName+" "+value.LastName+"</td>"+
                        "<td>"+value.eventName+"</td>"+
                        "<td>"+value.TopSpeed+"</td>"+
+                       "<td>"+"$ "+((value.hasOwnProperty("Amount"))?value.Amount:"0")+" HKD"+"</td>"+
                        "</tr>";
             $(html).appendTo("#records-table");
 			index++;

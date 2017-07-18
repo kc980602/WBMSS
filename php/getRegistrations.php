@@ -29,7 +29,17 @@
 		if($registrations != "["){
 			$registrations .= ",";
 		}
-		$registrations .= "{\"RegID\":\"$record[RegID]\",\"racekitName\":\"$record[racekitName]\",\"eventName\":\"$record[eventName]\",\"DateOfEvent\":\"$record[DateOfEvent]\",\"FirstName\":\"$record[FirstName]\",\"LastName\":\"$record[LastName]\",\"FinishTime\":\"$record[FinishTime]\",\"CheckInTime\":\"$record[CheckInTime]\",\"TopSpeed\":\"$record[TopSpeed]\",\"RunnerID\":\"$record[RunnerID]\"}";
+		$addition = "";
+		if($_COOKIE["userType"] == "sponsor"){
+			$amounts = mysqli_query($conn,"SELECT SUM(Amount) AS Amount
+			FROM sponsorrecord
+			WHERE RegID = $record[RegID] AND SponsorID = $record[RunnerID]
+			GROUP BY RegID");
+			while($amount = mysqli_fetch_assoc($amounts)){
+				$addition = ",\"Amount\":\"$amount[Amount]\"";
+			}
+		}
+		$registrations .= "{\"RegID\":\"$record[RegID]\",\"racekitName\":\"$record[racekitName]\",\"eventName\":\"$record[eventName]\",\"DateOfEvent\":\"$record[DateOfEvent]\",\"FirstName\":\"$record[FirstName]\",\"LastName\":\"$record[LastName]\",\"FinishTime\":\"$record[FinishTime]\",\"CheckInTime\":\"$record[CheckInTime]\",\"TopSpeed\":\"$record[TopSpeed]\",\"RunnerID\":\"$record[RunnerID]\"$addition}";
 	}
 	$registrations .= "]";
 
