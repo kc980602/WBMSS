@@ -1,8 +1,7 @@
 <?php
   extract($_POST);
-  if(isset($_COOKIE["userID"],$_COOKIE["userType"],$regID)){
+  if(isset($event)){
 
-    if($_COOKIE["userType"] == "runner"){
 
       require_once("dbInfo.php");
       $conn = mysqli_connect($hostname, $username, $password, $database);
@@ -11,16 +10,16 @@
       }
 
       $record=mysqli_query($conn,"DELETE FROM `eventregister`
-        WHERE (RegID = $regID AND RunnerID = $_COOKIE[userID])");
-      if(mysqli_affected_rows($conn) > 0){
-        echo "You have successfully deleted the event.";
+        WHERE EventID = $event");
+
+      $record=mysqli_query($conn,"DELETE FROM `event`
+        WHERE EventID = $event");
+      $deletedRows = mysqli_affected_rows($conn);
+      if($deletedRows > 0){
+        echo "You have successfully deleted the event and $deletedRows participants were affected.";
       }else{
         echo "The operation is failed.\nPlease try again later.";
       }
-
-    }else{
-      echo "Sorry, you are not a runner";
-    }
 
   }else{
     echo "Sorry, some problems are encountered.";

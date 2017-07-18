@@ -185,7 +185,7 @@
             var html = "<tr id='records-"+i+"'>"+
                        "<td align='center'>"+
                        "<a class='btn btn-default' onclick='unlock("+i+","+value.EventID+")'><em class='fa fa-pencil'></em></a>"+
-                       "<a class='btn btn-danger'><em class='fa fa-trash'></em></a>"+
+                       "<a class='btn btn-danger' onclick='deleteEvent("+value.EventID+")'><em class='fa fa-trash'></em></a>"+
                        "</td>"+
                        "<td>"+value.EventID+"</td>"+
                        "<td>"+value.Name+"</td>"+
@@ -211,6 +211,21 @@
       if(formOn){
         document.querySelector("#charity_form").innerHTML = "";
         formOn = false;
+      }
+    }
+
+    function deleteEvent(eventID){
+      var result = confirm("Are you sure you want to delete the event permanently?\n\nALERT: This operation cannot be undone.");
+      if(result == true){
+        $.ajax({
+            method: "POST",
+            url: "../php/deleteEvent.php",
+            data: { "event": eventID }
+          })
+          .done(function(msg) {
+            alert(msg);
+            refreshRecords();
+          });
       }
     }
 
