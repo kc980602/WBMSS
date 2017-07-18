@@ -18,7 +18,7 @@ printBar("../php/volunteerindex.php");
  ?>
 
 
-<div class="container" style="margin-top: 54px;">
+<div class="container">
     <div class="row">
 
       <p></p>
@@ -47,8 +47,8 @@ $panel->drawHeading("Sponsor Record","NEW","newRow(5);");
 $panel->Head->addItemArray($col);
 
 while ($rows = mysqli_fetch_assoc($rc)) {
-$row = array($rows['FirstName'], $rows['RaceKitSent']);
-$panel->Body->addRow($row,$rows['LastName']);
+$row = array($rows['FirstName'], $rows['LastName']);
+$panel->Body->addRow($row,$rows['RegID']);
 }
 $panel->tableEnd();
 $panel->panelEnd();
