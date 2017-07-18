@@ -3,7 +3,7 @@ require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
 printHead();
 printBody();?>
-<form class="form-horizontal">
+<form class="form-horizontal" method="post" action="">
 <fieldset>
 <!-- form input-->
 <?php
@@ -31,37 +31,45 @@ if(isset($_COOKIE['userID'])){
   printFormItem("company", "Company", "Please Enter Your Company Name", "text", $rc['Company']);
   printFormItem("email", "Email", "Please Enter Your Email Address", "email", $rc['Email']);
   printFormButton("submit", "SUBMIT", "submit", "");
+  $alert = "";
   if(isset($_POST['newPwd'])){
-    $runID = $_COOKIE['userID'];
-    explode($_POST);
-    $sql = "UPDATE Sponsor SET
-    Password = $newPwd,
-    FirstName = $fname,
-    LastName = $lname,
-    Company = $company,
-    Email = $email
-    WHERE RunnerID = $runID AND
-    Password = $currPwd;";
-    $rc = mysqli_query($conn, $sql);
-    if(mysqli_affected_row($rc)>0){
-      echo "<h3>Updated succuessfully!</h3>";
+    $sID = $_COOKIE['userID'];
+    extract($_POST);
+    if($currPwd==$confirmPwd){
+      $sql = "UPDATE Sponsor SET
+      Password = '$newPwd',
+      FirstName = '$fname',
+      LastName = '$lname',
+      Company = '$company',
+      Email = '$email'
+      WHERE SponsorID = '$sID' AND
+      Password = '$currPwd';";
+      if(mysqli_query($conn, $sql)){
+        $alert = "Updated succuessfully!";
+      }
+    } else {
+      $alert = "Your password maybe incorrect\\n or the new password is the same";
     }
+    echo "<script>alert(\"$alert\")</script>";
   }else if(isset($_POST['currPwd'])){
-    $runID = $_COOKIE['userID'];
-    explode($_POST);
+    $sID = $_COOKIE['userID'];
+    extract($_POST);
     $sql = "UPDATE Sponsor SET
-    FirstName = $fname,
-    LastName = $lname,
-    Company = $company,
-    Email = $email
-    WHERE RunnerID = $runID AND
-    Password = $currPwd;";
-    $rc = mysqli_query($conn, $sql);
-    if(mysqli_affected_row($rc)>0){
+    FirstName = '$fname',
+    LastName = '$lname',
+    Company = '$company',
+    Email = '$email'
+    WHERE SponsorID = '$sID' AND
+    Password = '$currPwd';";
+    if(mysqli_query($conn, $sql)){
       echo "<h3>Updated succuessfully!</h3>";
-    }
+    }else {
+      $alert = "Your new password and confirm password is not the same.";
+      echo "<script>alert(\"$alert\")</script>";
   }
 }
+printEnd();
+?>
 </fieldset>
 </form>
 <script>
@@ -77,5 +85,3 @@ function changePwd(){
   form.submit();
 }
 </script>
-printEnd();
-?>
