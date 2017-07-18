@@ -27,8 +27,12 @@
 <?php
 require_once('../lib/printForm.php'); // PrintForm Library
 
-printBar("../php/sponsorindex.php");
-
+if ($_COOKIE['userType']=="sponsor") {
+  printBar("../php/sponsorindex.php");
+}
+if ($_COOKIE['userType']=="administrator") {
+  printBar("../php/adminindex.php");
+}
  ?>
 
 
