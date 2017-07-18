@@ -1,13 +1,12 @@
 <?php
 
-  if ($_COOKIE['userType']=="runner") {
+  if ($_COOKIE['userType']=="sponsor") {
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
-    printSystemPageStart("../php/runnerEditProfile.php");
-    printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
-    printSystemPageSideMenuOtion("../php/runnerEventRecord.php", "Event Record");
-
-    printSystemPageSideMenuOtionClose("Runner System", "../php/runnerEditProfile.php");
+    printSystemPageStart("../php/sponsorEditProfile.php");
+    printSystemPageSideMenuOtion("../html/sponsorship.html", "Sponsor Runner");
+    printSystemPageSideMenuOtion("../panel/SponsorDel.php", "Sponsor Record");
+    printSystemPageSideMenuOtionClose("Sponsor System", "../php/sponsorEditProfile.php");
 
 
     printSystemPageEnd();

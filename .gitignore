@@ -4,3 +4,5 @@ image/Thumbs.db
 image/Thumbs.db
 *.db
 *.db
+php/runnerEventRecord.php
+php/sponsorEditProfile.php

@@ -19,30 +19,38 @@
   <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
   <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
 
-
-  <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-  <!--[if lt IE 9]><script src="~/Scripts/AssetsBS3/ie8-responsive-file-warning.js"></script><![endif]-->
   <style>
-    #sponsor_form{
+    #display-total{
+      width: 40%;
+      height: 30%;
+      margin:auto;
+      text-align: center;
+      border: 2px solid;
+      border-radius: 5px;
+    }
+    #disregister:hover{
+      width: 30px;
+      height: 30px;
+      cursor: pointer;
+    }
+    #charity_form{
       position: fixed;
 	  left:25%;
 	  top:12.5%;
 	  align-selft:center;
 	  z-index:9999999999;!important
     }
-	#sponsor_form iframe{
+	#charity_form iframe{
 	  width:50vw;
 	  height:75vh;
 		border: 2px solid;
 		border-radius: 10px;
 	}
   </style>
-
-
 </head>
 
 <body>
-  <div id="sponsor_form">
+  <div id="charity_form">
   </div>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -80,8 +88,8 @@
         <div class="row">
 
         <p></p>
-        <h1>Sponsorship</h1>
-        <h3>Sponsor Charity With Runner</h3>
+        <h1>Charity Management</h1>
+        <h3>View & Create New Charity</h3>
 
             <div class="col-md-10 col-md-offset-1">
 
@@ -89,23 +97,22 @@
                   <div class="panel-heading">
                     <div class="row">
                       <div class="col col-xs-6">
-                        <h3 class="panel-title">Event Records</h3>
+                        <h3 class="panel-title">Event</h3>
                       </div>
                       <div class="col col-xs-6 text-right">
-                        <button type="button" onclick="createForm()" class="btn btn-sm btn-primary btn-create">Sponsor Him/Her</button>
+                        <button type="button" onclick="createForm()" class="btn btn-sm btn-primary btn-create">Create New</button>
                       </div>
                     </div>
                   </div>
                   <div class="panel-body">
-                    <table class="table table-hover table-striped table-bordered table-list">
+                    <table class="table table-striped table-bordered table-list">
                       <thead>
                         <tr>
-                            <th><em class="fa fa-cog"></em></th>
-                            <th class="hidden-xs">RunnerID</th>
-                            <th>Full Name</th>
-							              <th>Registered Event(s)</th>
-                            <th>Top Speed</th>
-                            <th>Total Sponsored</th>
+                            <th class="hidden-xs">CharityID</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Website URL</th>
+                            <th>Logo</th>
                         </tr>
                       </thead>
                       <tbody id="records-table">
@@ -143,61 +150,51 @@
 	<script type="text/javascript">
     var maxIndex = 10;
     var minIndex = 0;
-	  var previous;
     var json;
-    var selectedRegID;
-    var formOn = false;
+	var formOn = false;
 
     function refreshRecords(){
       $.ajax({
           method: "POST",
-          url: "../php/getRegistrations.php",
+          url: "../php/getCharities.php",
           dataType: "json"
         })
         .done(function(data) {
           document.querySelector("#records-table").innerHTML = "";
           document.querySelector("#pages-selection").innerHTML = "";
+          data = data.replace(/\r?\n/g,"|n|n|n|");
+          console.log(data);
           json = $.parseJSON(data);
           for(var t = 1; t <= Math.ceil(json.length/10); t++){
             var html = "<li><a href='#' onclick='maxIndex = 10 * "+t+";minIndex = maxIndex - 10;refreshRecords()'>"+t+"</a></li>";
             $(html).appendTo("#pages-selection")
           }
             document.querySelector("#pages-here").innerHTML = "Page "+(maxIndex/10)+" of "+Math.ceil(json.length/10);
-			var index = 0;
           for(var i = minIndex; (i < json.length && i < maxIndex); i++){
             var value = json[i];
-            var FinishTime =  value.FinishTime.split(":");
-            var CheckInTime = value.CheckInTime.split(":");
-            console.log(value.Amount);
-            var html = "<tr id='records-"+i+"' style='cursor:pointer' onclick=\"document.getElementsByName('runner-selection')["+index+"].checked = true;selectedRegID = $('#records-"+i+" #RegID')[0].dataset.regid\">"+
-                       "<td align='center'>"+
-                       "<a class='btn btn-default'><input type='radio' name='runner-selection'></a>"+
-                       "</td>"+
-                       "<td id='RegID' data-regid='"+value.RegID+"'>"+value.RunnerID+"</td>"+
-                       "<td>"+value.FirstName+" "+value.LastName+"</td>"+
-                       "<td>"+value.eventName+"</td>"+
-                       "<td>"+value.TopSpeed+"</td>"+
-                       "<td>"+"$ "+((value.hasOwnProperty("Amount"))?value.Amount:"0")+" HKD"+"</td>"+
+            var html = "<tr id='records-"+i+"'>"+
+                       "<td>"+value.CharityID+"</td>"+
+                       "<td>"+value.Name+"</td>"+
+                       "<td>"+value.Description.replace("|n|n|n|","</br>").replace("|n|n|n||n|n|n|","</br></br>").replace("|n|n|n| |n|n|n|","</br></br>")+"</td>"+
+                       "<td>"+"<a href='"+value.WebsiteUrl+"'>"+value.WebsiteUrl+"</a>"+"</td>"+
+                       "<td>"+"<img width='50' height='50' src='"+((value.Logo=="")?"":"../"+value.Logo)+"'>"+"</td>"+
                        "</tr>";
             $(html).appendTo("#records-table");
-			index++;
           }
         });
     }
 
     function createForm(){
-      if(!formOn&&selectedRegID!=undefined){
-        var html = "<iframe width='1024' height='768' frameborder='0' seamless src='../php/sponsor_form.php?RegID="+selectedRegID+"'>";
-        $(html).appendTo("#sponsor_form");
-        formOn = true;
-      }else{
-        alert("Sorry, you dont have selected a runner.\nPlease try again.");
-      }
-    }
+  		if(!formOn){
+  			var html = "<iframe width='1024' height='768' frameborder='0' seamless src='charity_form.html'>";
+  			$(html).appendTo("#charity_form");
+  			formOn = true;
+  		}
+  	}
 
     function closeForm(){
       if(formOn){
-        document.querySelector("#sponsor_form").innerHTML = "";
+        document.querySelector("#charity_form").innerHTML = "";
         formOn = false;
       }
     }
@@ -207,15 +204,7 @@
         for(var i = 0; i<= $("#records-"+num+" input").length; i ++){
           jQuery($("#records-"+num+" input")[i]).prop("disabled", false);
         }
-		if(previous != undefined){
-			for(var i = 0; i<= previous.length; i ++){
-			  jQuery($(previous+" input")[i]).prop("disabled", true);
-			}
-			$(previous).prop("enable",false);
-		}
-		previous = "#records-"+num;
         $("#records-"+num).prop("enable",true);
-
       }else{
         var TopSpeed = jQuery($("#records-"+num+" input")[0]).prop("value");
         var FinishTime = jQuery($("#records-"+num+" input")[1]).prop("value")+":"+jQuery($("#records-"+num+" input")[2]).prop("value")+":"+jQuery($("#records-"+num+" input")[3]).prop("value");
@@ -241,6 +230,7 @@
       }
     }
     refreshRecords();
+
 	</script>
 
 </body>
