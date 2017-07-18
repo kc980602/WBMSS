@@ -2,12 +2,12 @@
 .navbar-default {
   background-color: #ffffff;
 }
-
 .mainContent {
   margin-top: 54px;
-  background-color: red;
-  overflow: hidden;
-  width: 200px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
 }
 
 legend {
@@ -15,46 +15,9 @@ legend {
   width: 100%;
   padding: 0;
   margin-bottom: 20px;
-  font-size: 30px;
+  font-size: 24px;
   line-height: inherit;
   color: #333;
   border: 0;
   border-bottom: 1px solid #e5e5e5;
-}
-.floatLeft {
-  float:left;
-}
-
-.container {
-  display:inline-block;
-}
-
-.childLeft {
-  float: left;
-  background-color: blue;
-  width: 15%;
-  height: 50px;
-  margin: 3px;
-}
-
-.childRight {
-  float: right;
-  background-color: blue;
-  width: 85%;
-  height: 50px;
-  margin: 3px;
-}
-
-.inner {
-  overflow: hidden;
-  width: 2000px;
-}
-
-.SideContainer {
-  float: left;
-  padding-top: 70px;
-  padding-right: 15px;
-  padding-left: 15px;
-  margin-right:3px;
-  display:inline-block;
 }
