@@ -1,0 +1,55 @@
+
+.navbar-default {
+  background-color: #ffffff;
+}
+
+.mainContent {
+  margin-top: 54px;
+  overflow: hidden;
+}
+
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 20px;
+  font-size: 30px;
+  line-height: inherit;
+  color: #333;
+  border: 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+.floatLeft {
+  float:left;
+}
+
+.floatRight {
+  float:right;
+}
+.childLeft {
+  float: left;
+  width: 15%;
+}
+
+.childRight {
+  float: right;
+  width: 85%;
+}
+
+.inner {
+  overflow: hidden;
+  width: 100%;
+}
+
+.SideContainer {
+  float: left;
+  padding-top: 70px;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right:3px;
+  display:inline-block;
+}
+
+.form-horizontal {
+  float: right;
+}

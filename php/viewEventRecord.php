@@ -9,14 +9,6 @@
     background-color: gray;
   }
 </style>
-</head>
-<body>
-<div class="container">
-    <div class="row">
-
-      <p></p>
-      <h1>View Event Record</h1>
-      <h3>The table of event record including Check-in Time, Time to finish, Top speed</h3>
 <?php
 require_once('dbInfo.php');
 require_once('../panel/table.php');
@@ -36,7 +28,7 @@ if(isset($_GET['sort'])){
 }
 function sortColumn($col){
   if(!isset($_COOKIE['order']))
-    setcookie("sort", "ASC", time()+3600);
+    setcookie("order", "ASC", time()+3600);
   if(isset($_COOKIE['sort'])){
     if($_COOKIE['sort']==$col){
       if($_COOKIE['order']=="ASC")
@@ -51,11 +43,30 @@ function sortColumn($col){
     setcookie("sort", $col, time()+3600);
     setcookie("order","ASC",time()+3600);
   }
+}
+ ?>
+</head>
+<body>
+  <?php require_once('../lib/container.php');
+  cBody();?>
+<div class="container">
+    <div class="row">
+
+      <p></p>
+      <h1>View Event Record</h1>
+      <h3>The table of event record including Check-in Time, Time to finish, Top speed</h3>
+<?php
+$tb = "EventRegister";
+if(isset($_COOKIE['sort'])){
   $sort = $_COOKIE['sort'];
   $order = $_COOKIE['order'];
+  $ob = "ORDER BY";
+} else {
+  $sort = "";
+  $order = "";
+  $ob = "";
 }
-$tb = "EventRegister";
-$sql = "SELECT * FROM $tb $sort $order";
+$sql = "SELECT * FROM $tb $ob $sort $order";
 $rc = mysqli_query($conn, $sql);
 $rowCount = mysqli_num_rows($rc);
 $totalPage = ceil($rowCount/50);
@@ -90,4 +101,5 @@ $panel->drawPanel();
 
     </div>
 </div>
+<?php cEnd();?>
 </body>

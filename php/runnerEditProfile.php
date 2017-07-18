@@ -1,28 +1,30 @@
 <?php
 require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
-printHead();
-printBody();?>
-<form class="form-horizontal">
-<fieldset>
+printSystemPageStart("../php/runnerEditProfile.php");
+printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
+
+printSystemPageSideMenuOtionClose("Runner System", "../php/runnerEditProfile.php");
+?>
+
 <!-- form input-->
 <?php
 if(isset($_COOKIE['userType'])){
-  if($_COOKIE['userType']!="runner"){
-    header("location: ../index.html");
-  }
+  if($_COOKIE['userType']!="runner")
+    returnPage("You are not a runner!");
 }else{
-  header("location: ../index.html");
+  returnPage("You have to login first!");
 }
+
 if(isset($_COOKIE['userID'])){
   $sql = "SELECT * FROM Runner WHERE RunnerID = $_COOKIE[userID];";
   $rs = mysqli_query($conn, $sql);
   $rc = mysqli_fetch_assoc($rs);
-  echo "<legend id='form_name'>$rc[FirstName] $rc[LastName] Profile</legend>";
+
   printFormItem("currPwd", "Current Password", "Please Enter Your password", "password", "");
   if(!isset($_POST['updatePwd'])){
     printFormButton("chgPwd","Change Password", "button","changePwd();");
-  }else {
+  } else {
     printFormItem("newPwd", "New Password", "Please Enter Your new password", "password", "");
     printFormItem("confirmPwd", "ConfirmPassword", "Re-type Your new password again", "password", "");
   }
@@ -31,9 +33,9 @@ if(isset($_COOKIE['userID'])){
   printRadio("gender","Gender","Male","Male","Female","Female", $rc['Gender']);
   printFormItem("dob", "Date of Birth", "YYYY/MM/DD", "date", $rc['DateOfBirth']);
   printFormItem("email", "Email", "Please Enter Your Email Address", "email", $rc['Email']);
-  printFormItem("Country", "Country", "Please Enter Your Country", "text", $rc['Country']);
+  printFormItem("country", "Country", "Please Enter Your Country", "text", $rc['Country']);
   printFormButton("submit", "SUBMIT", "submit", "");
-}else{ // For Testing Only
+} else { // For Testing Only
   echo "<legend id='form_name'>Profile</legend>";
   printFormItem("currPwd", "Current Password", "Please Enter Your password", "password", "");
   if(!isset($_POST['updatePwd'])){
@@ -47,49 +49,65 @@ if(isset($_COOKIE['userID'])){
   printRadio("gender","Gender","Male","Male","Female","Female", "");
   printFormItem("dob", "Date of Birth", "YYYY/MM/DD", "date", "");
   printFormItem("email", "Email", "Please Enter Your Email Address", "email", "");
-  printFormItem("Country", "Country", "Please Enter Your Country", "text", "");
+  printFormItem("country", "Country", "Please Enter Your Country", "text", "");
   printFormButton("submit", "SUBMIT", "submit", "");
 }
-if(isset($_POST['newPwd'])){
-  $runID = $_COOKIE['userID'];
-  explode($_POST);
-  $sql = "UPDATE Runner SET
-  Password = $newPwd,
-  FirstName = $fname,
-  LastName = $lname,
-  Gender = $gender,
-  DateOfBirth = $dob,
-  Email = $email,
-  Country = $country
-  WHERE RunnerID = $runID AND
-  Password = $currPwd;";
-  $rc = mysqli_query($conn, $sql);
-  if(mysqli_affected_row($rc)>0){
-    $echo "<h3>Updated succuessfully!</h3>";
-  }
-}else if(isset($_POST['currPwd'])){
-  $runID = $_COOKIE['userID'];
-  explode($_POST);
-  $sql = "UPDATE Runner SET
-  FirstName = $fname,
-  LastName = $lname,
-  Gender = $gender,
-  DateOfBirth = $dob,
-  Email = $email,
-  Country = $country,\
-  WHERE RunnerID = $runID AND
-  Password = $currPwd;";
-  $rc = mysqli_query($conn, $sql);
-  if(mysqli_affected_row($rc)>0){
-    $echo "<h3>Updated succuessfully!</h3>";
-  }
+printSystemPageEnd();
+
+function returnPage($message) {
+  echo "<script type='text/javascript'>alert('$message'); window.location.href='../index.html';</script>";
 }
- ?>
+
+?>
 <!-- Button -->
 
+<?php
+$alert = "";
+if(isset($_POST['currPwd'])){
+  $runID = $_COOKIE['userID'];
+  extract($_POST);
+  $sql = "UPDATE Runner SET
+  FirstName = '$fname',
+  LastName = '$lname',
+  Gender = '$gender',
+  DateOfBirth = '$dob',
+  Email = '$email',
+  Country = '$country'
+  WHERE RunnerID = '$runID' AND
+  Password = '$currPwd';";
+  if(mysqli_query($conn, $sql)){
+    $alert = "Updated succuessfully!";
+  } else {
+    $alert = "Your password maybe incorrect\\n or there's no change to your profile.";
+  }
+  echo "<script>alert(\"$alert\")</script>";
+} else if(isset($_POST['newPwd'])){
+  $runID = $_COOKIE['userID'];
+  extract($_POST);
+  if($currPwd==$confirmPwd){
+    $sql = "UPDATE Runner SET
+    Password = '$newPwd',
+    FirstName = '$fname',
+    LastName = '$lname',
+    Gender = '$gender',
+    DateOfBirth = '$dob',
+    Email = '$email',
+    Country = '$country',
+    WHERE RunnerID = '$runID' AND
+    Password = '$currPwd';";
+    if(mysqli_query($conn, $sql)){
+      $alert = "Updated succuessfully!";
+    } else {
+      $alert = "Your password maybe incorrect\\n or the new password is the same";
+    }
+    echo "<script>alert(\"$alert\")</script>";
+  } else {
+    $alert = "Your new password and confirm password is not the same.";
+    echo "<script>alert(\"$alert\")</script>";
+  }
+}
 
-</fieldset>
-</form>
+?>
 <script>
 function changePwd(){
   var form = document.createElement("form");
@@ -103,6 +121,5 @@ function changePwd(){
   form.submit();
 }
 </script>
-printEnd();
 </body>
 </html>
