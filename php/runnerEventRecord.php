@@ -88,7 +88,7 @@ $col = array(
   "Check In Time" =>"CheckInTime",
   "Finish Time" =>"FinishTime",
   "Top Speed" => "TopSpeed",
-  "Race Kit ID" => "RaceKitID";
+  "Race Kit ID" => "RaceKitID");
 $panel = new Panel($page,$totalPage);
 $panel->drawHeading("Event Record");
 $panel->Head->addItemArray($col);
