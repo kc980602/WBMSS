@@ -152,21 +152,27 @@
     }
 
     function submitForm(){
-        var formData = new FormData($("#charity_form")[0]);
-        formData.append( "RegID", RegID );
-        $.ajax({
-          method: "POST",
-          url: "../php/makeDonation.php",
-          contentType: false,
-          processData: false,
-          data: formData
-        })
-          .done(function( msg ) {
-            alert(msg);
-            if(msg.includes("You have successfully sponsored the runner with the charity!")){
-              window.top.location.assign("../php/payment.php?amount="+document.querySelector("#amount-input").value+"&location=../html/sponsorship.html");
-            }
-          });
+        var selectedCharity = document.getElementById("charities-selection");
+        var index = selectedCharity.selectedIndex;
+        selectedCharityName = selectedCharity.options[index].innerHTML;
+        var result = confirm("Are you sure you would like to donate $ "+document.querySelector("#amount-input").value+" HKD to the charity - " + selectedCharityName + "?");
+        if(result == true){
+          var formData = new FormData($("#charity_form")[0]);
+          formData.append( "RegID", RegID );
+          $.ajax({
+            method: "POST",
+            url: "../php/makeDonation.php",
+            contentType: false,
+            processData: false,
+            data: formData
+          })
+            .done(function( msg ) {
+              alert(msg);
+              if(msg.includes("You have successfully sponsored the runner with the charity!")){
+                window.top.location.assign("../php/payment.php?amount="+document.querySelector("#amount-input").value+"&location=../html/sponsorship.html");
+              }
+            });
+        }
     }
 
     refreshRecords();
