@@ -144,6 +144,7 @@
 	<script type="text/javascript">
     var maxIndex = 10;
     var minIndex = 0;
+	var previous;
     var json;
 
     function refreshRecords(){
@@ -185,7 +186,15 @@
         for(var i = 0; i<= $("#records-"+num+" input").length; i ++){
           jQuery($("#records-"+num+" input")[i]).prop("disabled", false);
         }
+		if(previous != undefined){
+			for(var i = 0; i<= previous.length; i ++){
+			  jQuery($(previous+" input")[i]).prop("disabled", true);
+			}
+			$(previous).prop("enable",false);
+		}
+		previous = "#records-"+num;
         $("#records-"+num).prop("enable",true);
+		
       }else{
         var TopSpeed = jQuery($("#records-"+num+" input")[0]).prop("value");
         var FinishTime = jQuery($("#records-"+num+" input")[1]).prop("value")+":"+jQuery($("#records-"+num+" input")[2]).prop("value")+":"+jQuery($("#records-"+num+" input")[3]).prop("value");
