@@ -57,7 +57,7 @@
             break;
           case 'volunteer':
             setcookie("userID",$row["volunteerID"], time()+$time, "/");
-            header("location: ../html/volunteerindex.html");
+            header("location: ../php/volunteerindex.php");
             break;
           case 'sponsor':
             setcookie("userID",$row["SponsorID"], time()+$time, "/");

@@ -2,8 +2,8 @@
 require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
 printSystemPageStart("../php/sponsorEditProfile.php");
-printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
-
+printSystemPageSideMenuOtion("../html/sponsorship.html", "Sponsor Runner");
+printSystemPageSideMenuOtion("../panel/SponsorDel.php", "Sponsor Record");
 printSystemPageSideMenuOtionClose("Sponsor System", "../php/sponsorEditProfile.php");
 
 if(isset($_COOKIE['userType'])){
