@@ -69,6 +69,7 @@ if(isset($_COOKIE['userID'])){
       $alert = "Your new password and confirm password is not the same.";
       echo "<script>alert(\"$alert\")</script>";
   }
+  }
 }
 printEnd();
 ?>
