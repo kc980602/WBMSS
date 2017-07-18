@@ -346,17 +346,6 @@ function printBar($index) {
         <ul class="nav navbar-nav">
           <li class="active"><a href="$index"><img style="max-width:30px; margin-top: -5px;"src="../image/img_home.png"></a></li>
         </ul>
-
-        <ul class="nav navbar-nav navbar-right">
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" style="padding:10px" data-toggle="dropdown" role="button" aria-expanded="false">
-              <img style="max-height:30px;"src="../image/icon.png">
-              <span class="caret"></span></a>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="../php/logout.php">Logout</a></li>
-            </ul>
-          </li>
-        </ul>
       </div>
     </div>
   </nav><!--/.nav-collapse -->
