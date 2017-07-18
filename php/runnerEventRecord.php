@@ -48,10 +48,9 @@ function sortColumn($col){
 </head>
 <body>
   <?php require_once('../lib/container.php');
-  cBody();?>
+  cBody("../php/runnerindex.php");?>
 <div class="container">
     <div class="row">
-
       <p></p>
       <h1>Your Event Records</h1>
       <h3>The table of event record including Check-in Time, Time to finish, Top speed</h3>
