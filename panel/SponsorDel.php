@@ -24,15 +24,7 @@
 <link href="../js/bootstrap.min.js" rel="stylesheet">
 
 
-<?php
-require_once('../lib/printForm.php'); // PrintForm Library
-
-printBar("../php/sponsorindex.php");
-
- ?>
-
-
-<div class="container" style="margin-top:54px;">
+<div class="container">
     <div class="row">
 
       <p></p>
@@ -46,7 +38,7 @@ if(isset($_GET['page'])){
 } else {
   $page = 1;
 }
-$sql = "SELECT * FROM `sponsorrecord`,`sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID and PaymentConfirmed IS NULL";
+$sql = "SELECT * FROM `sponsorrecord`,`sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID and PaymentConfirmed = '0' ";
 $rc = mysqli_query($conn, $sql);
 
 
