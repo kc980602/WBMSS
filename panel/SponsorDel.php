@@ -24,7 +24,15 @@
 <link href="../js/bootstrap.min.js" rel="stylesheet">
 
 
-<div class="container">
+<?php
+require_once('../lib/printForm.php'); // PrintForm Library
+
+printBar("../php/sponsorindex.php");
+
+ ?>
+
+
+<div class="container" style="margin-top:54px;">
     <div class="row">
 
       <p></p>
