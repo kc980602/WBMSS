@@ -1,9 +1,9 @@
 <?php
 
-  if ($_COOKIE['userType']=="admin") {
+  if ($_COOKIE['userType']=="administrator") {
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
-    printSystemPageStart("../php/sponsorEditProfile.php");
+    printSystemPageStart("../php/sponsorEditProfile.php", "../php/adminindex.php");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Manage Event");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Volunteer & Runner");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Create Charity");
