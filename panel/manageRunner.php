@@ -40,6 +40,7 @@
               input.setAttribute("type", "date");
             input.setAttribute("form", "newRow");
             input.setAttribute("class", "form-control input-md");
+            input.setAttribute("maxlength", "255");
             td.appendChild(input);
             row.appendChild(td);
           }
@@ -96,6 +97,7 @@
         editInput.setAttribute("form", "editRow"+num.toString());
         editInput.setAttribute("class", "form-control input-md");
         editInput.setAttribute("value", editTd.innerHTML);
+        editInput.setAttribute("maxlength", "255");
         editTd.innerHTML = "";
         editTd.appendChild(editInput);
       }
@@ -135,7 +137,7 @@ if(isset($_GET['update'])){
     case 'deleted':
       $alert = "A row has been deleted!";
       break;
-    case 'deletedFail':
+    case 'deleteFail':
       $alert = "Delete Failed!";
       break;
     case 'created':

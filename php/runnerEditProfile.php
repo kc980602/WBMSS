@@ -9,9 +9,11 @@ printBody();?>
 <?php
 if(isset($_COOKIE['userType'])){
   if($_COOKIE['userType']!="runner"){
+    echo "<script>alert(\"You are not a runner!\")</script>";
     header("location: ../index.html");
   }
 }else{
+  echo "<script>alert(\"You have to login first!\")</script>";
   header("location: ../index.html");
 }
 if(isset($_COOKIE['userID'])){
