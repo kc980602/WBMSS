@@ -5,7 +5,8 @@
     require_once('../lib/printForm.php'); // PrintForm Library
     printSystemPageStart("../php/sponsorEditProfile.php", "../php/adminindex.php");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Manage Event");
-    printSystemPageSideMenuOtion("../html/create_charity.html", "Volunteer & Runner");
+    printSystemPageSideMenuOtion("../panel/manageVolunteer.php", "Manage Volunteer");
+    printSystemPageSideMenuOtion("../panel/manageRunner.php", "Manage Runner");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Create Charity");
     printSystemPageSideMenuOtion("../panel/SponsorDel.php", "Sponsor Record");
     printSystemPageSideMenuOtionClose("Admin System", "../php/sponsorEditProfile.php");
