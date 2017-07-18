@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css" rel='stylesheet' type='text/css'>
     <link href="../css/panel_table.css" rel='stylesheet' type='text/css'>
     <link href="../css/bootstrap.min.css" rel="stylesheet">
-    <link href="../css/Navbar_menu.css" rel="stylesheet">
+    <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+    <link href="../css/custom.css" rel="stylesheet">
     <link href="../js/bootstrap.min.js" rel="stylesheet">
+    <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
+    <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
     <style>
       .container{
         width: 100%;
@@ -17,34 +19,41 @@
     </style>
     <script>
     var target = "runnerUpdate.php";
+    var nr = 0;
     function newRow(num){
-      var row = document.createElement("tr");
-      var form = document.createElement("form");
-      var tbody = document.getElementById("tbody");
-      form.setAttribute("method","post");
-      form.setAttribute("id", "newRow");
-      form.setAttribute("action", target);
-      row.appendChild(form);
-      for(var i=0;i<num;i++){
-        var td = document.createElement("td");
-        var input = document.createElement("input");
-        input.setAttribute("name", "new"+i);
-        input.setAttribute("type", "text");
-        input.setAttribute("form", "newRow");
-        input.setAttribute("class", "form-control input-md");
-        td.appendChild(input);
+      if(nr==0){
+        nr++;
+        var row = document.createElement("tr");
+        var form = document.createElement("form");
+        var tbody = document.getElementById("tbody");
+        form.setAttribute("method","post");
+        form.setAttribute("id", "newRow");
+          form.setAttribute("action", target);
+          row.appendChild(form);
+          for(var i=0;i<num;i++){
+            var td = document.createElement("td");
+            var input = document.createElement("input");
+            input.setAttribute("name", "new"+i);
+            if(i!=6)
+              input.setAttribute("type", "text");
+            else
+              input.setAttribute("type", "date");
+            input.setAttribute("form", "newRow");
+            input.setAttribute("class", "form-control input-md");
+            td.appendChild(input);
+            row.appendChild(td);
+          }
+        tbody.appendChild(row);
+        row = document.createElement("tr");
+        td = document.createElement("td");
+        var button = document.createElement("button");
+        button.setAttribute("class", "btn btn-primary");
+        button.setAttribute("onclick", "sendNewRow();");
+        button.innerHTML = "SUBMIT";
+        td.appendChild(button);
         row.appendChild(td);
+        tbody.appendChild(row);
       }
-      tbody.appendChild(row);
-      row = document.createElement("tr");
-      td = document.createElement("td");
-      var button = document.createElement("button");
-      button.setAttribute("class", "btn btn-primary");
-      button.setAttribute("onclick", "sendNewRow();");
-      button.innerHTML = "SUBMIT";
-      td.appendChild(button);
-      row.appendChild(td);
-      tbody.appendChild(row);
     }
     function sendNewRow(){
       document.getElementById("newRow").submit();
@@ -95,24 +104,57 @@
       document.getElementById("editRow"+num.toString()).submit();
     }
     </script>
+    <?php
+    require_once('../php/dbInfo.php'); // MySQLi Connection
+    require_once('panel.php');
+    if(isset($_GET['page'])){
+      $page = $_GET['page'];
+      setcookie("mrPage", $page, time()+3600);
+    } else if(isset($_COOKIE['mrPage'])){
+      $page = $_COOKIE['mrPage'];
+    }else{
+      setcookie("mrPage", 1, time()+3600);
+      $page = 1;
+    }
+     ?>
   </head>
   <body>
+    <?php
+    require_once('../lib/container.php');
+    cBody();
+    ?>
 <div class="container">
     <div class="row">
       <p></p>
       <h1>Manage Runner</h1>
       <h3>Create, Update, Delete a runner. Assign or Unassign runner to a Volunteer.</h3>
 <?php
-require_once('../php/dbInfo.php'); // MySQLi Connection
-require_once('panel.php');
-if(isset($_GET['page'])){
-  $page = $_GET['page'];
-  setcookie("racekitPage", $page, time()+3600);
-} else if(isset($_COOKIE['racekitPage'])){
-  $page = $_COOKIE['racekitPage'];
-}else{
-  setcookie("racekitPage", 1, time()+3600);
-  $page = 1;
+if(isset($_GET['update'])){
+  $msg = $_GET['update'];
+  switch($msg){
+    case 'deleted':
+      $alert = "A row has been deleted!";
+      break;
+    case 'deletedFail':
+      $alert = "Delete Failed!";
+      break;
+    case 'created':
+      $alert = "A row has been created!";
+      break;
+    case 'createFail':
+      $alert = "Creation Failure!";
+      break;
+    case 'updated':
+      $alert = "A row has been updated!";
+      break;
+    case 'nochanged':
+      $alert = "There is no change!";
+      break;
+    default:
+      $alert = "Update Error!";
+      break;
+  }
+  echo "<script>alert(\"$alert\");</script>";
 }
 $tb = "Runner";
 $sql = "SELECT * FROM $tb";
@@ -144,5 +186,6 @@ $panel->drawPanel();
 
     </div>
 </div>
+<?php cEnd(); ?>
 </body>
 </html>
