@@ -3,11 +3,11 @@
   if ($_COOKIE['userType']=="volunteer") {
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
-    printSystemPageStart("../php/volunteerEditProfile.php");
+    printSystemPageStart("../php/volunteerindex.php");
     printSystemPageSideMenuOtion("../html/event_records_management.html", "Runner Event Record");
     printSystemPageSideMenuOtion("../panel/SendRaceKit.php", "Send Race Kit");
-
-    printSystemPageSideMenuOtionClose("Volunteer System", "../php/runnerEditProfile.php");
+    printSystemPageSideMenuOtion("../panel/racekit.php", "Manage Race Kit");
+    printSystemPageSideMenuOtionClose("Volunteer System", "../php/volunteerindex.php");
 
 
     printSystemPageEnd();

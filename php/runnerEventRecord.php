@@ -109,5 +109,7 @@ $panel->drawPanel();
 
     </div>
 </div>
-<?php cEnd();?>
+<?php
+cEnd();
+?>
 </body>

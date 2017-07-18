@@ -5,7 +5,7 @@
     require_once('../lib/printForm.php'); // PrintForm Library
     printSystemPageStart("../php/runnerEditProfile.php");
     printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
-    printSystemPageSideMenuOtion("../html/register_event.html", "Register Event");
+    printSystemPageSideMenuOtion("../php/runnerEventRecord.php", "Event Record");
 
     printSystemPageSideMenuOtionClose("Runner System", "../php/runnerEditProfile.php");
 
