@@ -46,7 +46,7 @@ if(isset($_GET['page'])){
 } else {
   $page = 1;
 }
-$sql = "SELECT * FROM `sponsorrecord`,`sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID and PaymentConfirmed IS NULL";
+$sql = "SELECT * FROM `sponsorrecord`,`sponsor` where sponsor.SponsorID = sponsorrecord.SponsorID and PaymentConfirmed = '0' ";
 $rc = mysqli_query($conn, $sql);
 
 
