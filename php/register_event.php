@@ -12,7 +12,7 @@
 
       $record=mysqli_query($conn,"SELECT *
                                   FROM eventregister
-                                  WHERE RunnerID = $_COOKIE[userID]");
+                                  WHERE RunnerID = $_COOKIE[userID] AND EventID = '$event'");
       if(mysqli_num_rows($record) > 0){
         echo "Sorry, You have already registered the event in this year.\nPlease try again later.";
         return;
