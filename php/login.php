@@ -61,7 +61,7 @@
             break;
           case 'sponsor':
             setcookie("userID",$row["SponsorID"], time()+$time, "/");
-            header("location: ../html/sponsorindex.html");
+            header("location: ../php/sponsorindex.php");
             break;
           default:
             echo "error";
