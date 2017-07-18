@@ -5,9 +5,7 @@
 
 .mainContent {
   margin-top: 54px;
-  background-color: red;
   overflow: hidden;
-  width: 200px;
 }
 
 legend {
@@ -25,27 +23,19 @@ legend {
   float:left;
 }
 
-.container {
-  display:inline-block;
-}
-
 .childLeft {
   float: left;
-  background-color: blue;
   width: 15%;
-  margin: 3px;
 }
 
 .childRight {
   float: right;
-  background-color: blue;
   width: 85%;
-  margin: 3px;
 }
 
 .inner {
   overflow: hidden;
-  width: 2000px;
+  width: 100%;
 }
 
 .SideContainer {

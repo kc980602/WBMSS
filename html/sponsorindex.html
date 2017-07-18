@@ -23,7 +23,7 @@
     <!-- Custom styles for this template -->
     <link href="../css/bootstrap.min.css" rel="stylesheet">
     <link href="../css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-    <link href="../css/custom.css" rel="stylesheet">
+    <link href="../css/custom_system.css" rel="stylesheet">
     <link href="../js/bootstrap.min.js" rel="stylesheet">
     <link href="../js/bootstrap-datetimepicker.min.js" rel="stylesheet">
     <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" />
@@ -56,8 +56,21 @@
             </li>
             <li><a href="#tranning">Tranning</a></li>
             <li><a href="#calculator">Calculator</a></li>
-
           </ul>
+
+          <ul class="nav navbar-nav navbar-right">
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" style="padding:10px" data-toggle="dropdown" role="button" aria-expanded="false">
+                <img style="max-height:30px;"src="../image/icon.png">
+                <span class="caret"></span></a>
+              <ul class="dropdown-menu" role="menu">
+                <li><a href="../html/runnerReg.html">My Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="../php/logout.php">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+
         </div>
       </div>
     </nav><!--/.nav-collapse -->
@@ -80,37 +93,19 @@
         </div>
 
         <div class="childRight">
-          <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data" style="width:85%;">
+          <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data" style="width:100%;">
             <fieldset>
               <!-- Form Name -->
-              <legend>Login</legend>
-              <!-- Text input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="fn">ID</label>
-                <div class="col-md-4">
-                  <input id="id" name="id" type="text" placeholder="your id" class="form-control input-md" required="">
-                </div>
-              </div>
-
-              <!-- Text input-->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="ln">Password</label>
-                <div class="col-md-4">
-                  <input id="Password" name="Password" type="Password" placeholder="password" class="form-control input-md" required="">
-
-                </div>
-              </div>
-
-              <!-- Button -->
-              <div class="form-group">
-                <label class="col-md-4 control-label" for="submit"></label>
-                <div class="col-md-4">
-                  <button id="reset" name="reset" type="reset" class="btn btn-primary">RESET</button>
-                  <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
-                </div>
-              </div>
+              <legend>Sponsor System</legend>
             </fieldset>
           </form>
+
+          <div class="container">
+
+
+
+          </div>
+
         </div>
       </div>
     </div>
