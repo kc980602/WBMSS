@@ -53,7 +53,7 @@
         switch ($type) {
           case 'runner':
             setcookie("userID",$row["RunnerID"], time()+$time, "/");
-            header("location: ../html/runnerindex.php");
+            header("location: ../php/runnerindex.php");
             break;
           case 'volunteer':
             setcookie("userID",$row["volunteerID"], time()+$time, "/");

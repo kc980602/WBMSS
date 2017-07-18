@@ -197,7 +197,7 @@ EOF;
   echo $code;
 }
 
-function printSystemPageStart() {
+function printSystemPageStart($mylocation) {
   $code = <<< EOF
   <!DOCTYPE html>
   <html lang="en">
@@ -256,7 +256,7 @@ function printSystemPageStart() {
                   <img style="max-height:30px;"src="../image/icon.png">
                   <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="../html/runnerReg.html">My Profile</a></li>
+                  <li><a href="$mylocation">My Profile</a></li>
                   <li class="divider"></li>
                   <li><a href="../php/logout.php">Logout</a></li>
                 </ul>
@@ -273,33 +273,41 @@ function printSystemPageStart() {
             <div class="SideContainer">
               <ul class="nav bs-sidenav">
                 <li>
-                  <a href="#glyphicons">Glyphicons</a>
-                    <ul class="nav">
-                      <li><a href="#glyphicons-glyphs">Available glyphs</a></li>
-                      <li><a href="#glyphicons-how-to-use">How to use</a></li>
-                      <li><a href="#glyphicons-examples">Examples</a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div> <!-- /SideContainer -->
-          </div>
-
-          <div class="childRight">
-            <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data" style="width:100%;">
-              <fieldset>
-                <!-- Form Name -->
-                <legend>Sponsor System</legend>
-              </fieldset>
-            </form>
-
-            <div class="container">
 EOF;
   echo $code;
 }
 
+function printSystemPageSideMenuOtion($href, $text) {
+  $code = <<< EOF
+  <li><a href="$href">$text</a></li>
+EOF;
+  echo $code;
+}
+
+
+function printSystemPageSideMenuOtionClose($message, $mylocation) {
+  $code = <<< EOF
+  </ul>
+</li>
+</ul>
+</div> <!-- /SideContainer -->
+</div>
+
+<div class="childRight">
+<form class="form-horizontal" action="$mylocation" method="post" enctype="multipart/form-data" style="width:100%;">
+<fieldset>
+<!-- Form Name -->
+<legend>$message</legend>
+EOF;
+  echo $code;
+}
+
+
+
 function printSystemPageEnd() {
   $code = <<< EOF
-  </div>
+  </fieldset>
+</form>
 
 </div>
 </div>

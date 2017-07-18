@@ -23,6 +23,9 @@ legend {
   float:left;
 }
 
+.floatRight {
+  float:right;
+}
 .childLeft {
   float: left;
   width: 15%;
