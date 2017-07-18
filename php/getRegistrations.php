@@ -10,6 +10,9 @@
 		if($_COOKIE["userType"] == "runner"){
 			$condition = "WHERE eventregister.RunnerID = $_COOKIE[userID]";
 		}
+		if($_COOKIE["userType"] == "sponsor"){
+			$condition = "ORDER BY eventregister.TopSpeed DESC";
+		}
 	}
 	$records = mysqli_query($conn,"SELECT eventregister.RunnerID,FinishTime,CheckInTime,TopSpeed,runner.FirstName,runner.LastName,RegID,event.Name AS eventName ,event.DateOfEvent AS DateOfEvent ,racekitchoice.Name AS racekitName
 	FROM eventregister
