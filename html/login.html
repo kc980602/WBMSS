@@ -65,10 +65,16 @@
   </nav><!--/.nav-collapse -->
 
 
+
   <div class="mainContent">
-    <div class="container">      
+    <div class="container">
       <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data">
         <fieldset>
+
+          <!-- Form Name -->
+          <legend>Login</legend>
+
+
           <!-- Multiple Radios (inline) -->
           <div class="form-group">
             <label class="col-md-4 control-label" for="type">User Type</label>
@@ -85,11 +91,14 @@
                 <input type="radio" name="type" id="sponsor" value="sponsor">
                 Sponsor
               </label>
+              <label class="radio-inline" for="Admin">
+                <input type="radio" name="type" id="admin" value="administrator">
+                Admin
+              </label>
             </div>
           </div>
 
-          <!-- Form Name -->
-          <legend>Login</legend>
+
 
           <!-- Text input-->
           <div class="form-group">

@@ -27,6 +27,9 @@
     case 'sponsor':
       $pkName = "SponsorID";
       break;
+    case 'administrator':
+      $pkName = "AdministratorID";
+      break;
   }
   //check empty input
   foreach($input as $inputName => $value) {
@@ -62,6 +65,10 @@
           case 'sponsor':
             setcookie("userID",$row["SponsorID"], time()+$time, "/");
             header("location: ../php/sponsorindex.php");
+            break;
+          case 'administrator':
+            setcookie("userID",$row["AdministratorID"], time()+$time, "/");
+            header("location: ../php/adminindex.php");
             break;
           default:
             echo "error";
