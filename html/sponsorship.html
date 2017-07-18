@@ -23,19 +23,19 @@
   <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
   <!--[if lt IE 9]><script src="~/Scripts/AssetsBS3/ie8-responsive-file-warning.js"></script><![endif]-->
   <style>
-    #display-total{
-      width: 40%;
-      height: 30%;
-      margin:auto;
-      text-align: center;
-      border: 2px solid;
-      border-radius: 5px;
+    #sponsor_form{
+      position: fixed;
+	  left:25%;
+	  top:12.5%;
+	  align-selft:center;
+	  z-index:9999999999;!important
     }
-    #disregister:hover{
-      width: 30px;
-      height: 30px;
-      cursor: pointer;
-    }
+	#sponsor_form iframe{
+	  width:50vw;
+	  height:75vh;
+		border: 2px solid;
+		border-radius: 10px;
+	}
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -45,7 +45,8 @@
 </head>
 
 <body>
-
+  <div id="sponsor_form">
+  </div>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -82,8 +83,8 @@
         <div class="row">
 
         <p></p>
-        <h1>Event Records Management</h1>
-        <h3>View & Update Runner Event Records</h3>
+        <h1>Sponsorship</h1>
+        <h3>Sponsor Charity With Runner</h3>
 
             <div class="col-md-10 col-md-offset-1">
 
@@ -94,19 +95,19 @@
                         <h3 class="panel-title">Event Records</h3>
                       </div>
                       <div class="col col-xs-6 text-right">
+                        <button type="button" onclick="createForm()" class="btn btn-sm btn-primary btn-create">Sponsor Him/Her</button>
                       </div>
                     </div>
                   </div>
                   <div class="panel-body">
-                    <table class="table table-striped table-bordered table-list">
+                    <table class="table table-hover table-striped table-bordered table-list">
                       <thead>
                         <tr>
                             <th><em class="fa fa-cog"></em></th>
                             <th class="hidden-xs">RunnerID</th>
                             <th>Full Name</th>
+							<th>Registered Event(s)</th>
                             <th>Top Speed</th>
-                            <th>Finish Time</th>
-                            <th>Check In Time</th>
                         </tr>
                       </thead>
                       <tbody id="records-table">
@@ -144,8 +145,10 @@
 	<script type="text/javascript">
     var maxIndex = 10;
     var minIndex = 0;
-	var previous;
+	  var previous;
     var json;
+    var selectedRegID;
+    var formOn = false;
 
     function refreshRecords(){
       $.ajax({
@@ -162,23 +165,42 @@
             $(html).appendTo("#pages-selection")
           }
             document.querySelector("#pages-here").innerHTML = "Page "+(maxIndex/10)+" of "+Math.ceil(json.length/10);
+			var index = 0;
           for(var i = minIndex; (i < json.length && i < maxIndex); i++){
             var value = json[i];
             var FinishTime =  value.FinishTime.split(":");
             var CheckInTime = value.CheckInTime.split(":");
-            var html = "<tr id='records-"+i+"'>"+
+
+            var html = "<tr id='records-"+i+"' style='cursor:pointer' onclick=\"document.getElementsByName('runner-selection')["+index+"].checked = true;selectedRegID = $('#records-"+i+" #RegID')[0].dataset.regid\">"+
                        "<td align='center'>"+
-                       "<a class='btn btn-default' onclick='unlock("+i+","+value.RegID+")'><em class='fa fa-pencil'></em></a>"+
+                       "<a class='btn btn-default'><input type='radio' name='runner-selection'></a>"+
                        "</td>"+
-                       "<td>"+value.RunnerID+"</td>"+
+                       "<td id='RegID' data-regid='"+value.RegID+"'>"+value.RunnerID+"</td>"+
                        "<td>"+value.FirstName+" "+value.LastName+"</td>"+
-                       "<td>"+"<input disabled type='number' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min='0' max='99' maxlength='2' value='"+value.TopSpeed+"'>"+"</td>"+
-                       "<td>"+"<input disabled type='number' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min='0' max='99' maxlength='2' value='"+FinishTime[0]+"'>"+" : "+"<input disabled min='0' max='59' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' maxlength='2' type='number' value='"+FinishTime[1]+"'>"+" : "+"<input disabled type='number' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min='0' max='59' maxlength='2' value='"+FinishTime[2]+"'>"+"</td>"+
-                       "<td>"+"<input disabled type='number' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min='0' max='24' maxlength='2' value='"+CheckInTime[0]+"'>"+" : "+"<input disabled type='number' oninput='javascript :  if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);' min='0' max='59' maxlength='2' value='"+CheckInTime[1]+"'>"+"</td>"+
+                       "<td>"+value.eventName+"</td>"+
+                       "<td>"+value.TopSpeed+"</td>"+
                        "</tr>";
             $(html).appendTo("#records-table");
+			index++;
           }
         });
+    }
+
+    function createForm(){
+      if(!formOn&&selectedRegID!=undefined){
+        var html = "<iframe width='1024' height='768' frameborder='0' seamless src='../php/sponsor_form.php?RegID="+selectedRegID+"'>";
+        $(html).appendTo("#sponsor_form");
+        formOn = true;
+      }else{
+        alert("Sorry, you dont have selected a runner.\nPlease try again.");
+      }
+    }
+
+    function closeForm(){
+      if(formOn){
+        document.querySelector("#sponsor_form").innerHTML = "";
+        formOn = false;
+      }
     }
 
     function unlock(num,regID){
@@ -194,7 +216,7 @@
 		}
 		previous = "#records-"+num;
         $("#records-"+num).prop("enable",true);
-		
+
       }else{
         var TopSpeed = jQuery($("#records-"+num+" input")[0]).prop("value");
         var FinishTime = jQuery($("#records-"+num+" input")[1]).prop("value")+":"+jQuery($("#records-"+num+" input")[2]).prop("value")+":"+jQuery($("#records-"+num+" input")[3]).prop("value");

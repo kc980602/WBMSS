@@ -1,30 +1,26 @@
 <?php
 require_once('dbInfo.php'); // MySQli Connection
 require_once('../lib/printForm.php'); // PrintForm Library
-printHead();
-printBody();?>
-<form class="form-horizontal" method="post" action="">
-<fieldset>
-<!-- form input-->
-<?php
+printSystemPageStart("../php/sponsorEditProfile.php");
+printSystemPageSideMenuOtion("../html/sponsorship.html", "Sponsor Runner");
+printSystemPageSideMenuOtion("../panel/SponsorDel.php", "Sponsor Record");
+printSystemPageSideMenuOtionClose("Sponsor System", "../php/sponsorEditProfile.php");
+
 if(isset($_COOKIE['userType'])){
   if($_COOKIE['userType']!="sponsor"){
-    echo "<script>alert(\"You are not a sponsor!\")</script>";
-    header("location: ../index.html");
+    returnPage("You are not a runner!");
   }
 }else{
-  echo "<script>alert(\"You have to login first!\")</script>";
-  header("location: ../index.html");
+  returnPage("You have to login first!");
 }
 if(isset($_COOKIE['userID'])){
   $sql = "SELECT * FROM Sponsor WHERE SponsorID = $_COOKIE[userID];";
   $rs = mysqli_query($conn, $sql);
   $rc = mysqli_fetch_assoc($rs);
-  echo "<legend id='form_name'>$rc[FirstName] $rc[LastName] Profile</legend>";
   printFormItem("currPwd", "Current Password", "Please Enter Your password", "password", "");
   if(!isset($_POST['updatePwd'])){
     printFormButton("chgPwd","Change Password", "button","changePwd();");
-  }else {
+  } else {
     printFormItem("newPwd", "New Password", "Please Enter Your new password", "password", "");
     printFormItem("confirmPwd", "ConfirmPassword", "Re-type Your new password again", "password", "");
   }
@@ -53,7 +49,7 @@ if(isset($_COOKIE['userID'])){
       $alert = "Your password maybe incorrect\\n or the new password is the same";
     }
     echo "<script>alert(\"$alert\")</script>";
-  }else if(isset($_POST['currPwd'])){
+  } else if(isset($_POST['currPwd'])){
     $sID = $_COOKIE['userID'];
     extract($_POST);
     $sql = "UPDATE Sponsor SET
@@ -71,10 +67,13 @@ if(isset($_COOKIE['userID'])){
   }
   }
 }
-printEnd();
+printSystemPageEnd();
+
+function returnPage($message) {
+  echo "<script type='text/javascript'>alert('$message'); window.location.href='../index.html';</script>";
+}
 ?>
-</fieldset>
-</form>
+
 <script>
 function changePwd(){
   var form = document.createElement("form");

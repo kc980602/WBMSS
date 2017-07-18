@@ -121,5 +121,3 @@ function changePwd(){
   form.submit();
 }
 </script>
-</body>
-</html>
