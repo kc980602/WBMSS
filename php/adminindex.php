@@ -4,7 +4,7 @@
     require_once('dbInfo.php'); // MySQli Connection
     require_once('../lib/printForm.php'); // PrintForm Library
     printSystemPageStart("../php/sponsorEditProfile.php", "../php/adminindex.php");
-    printSystemPageSideMenuOtion("../html/create_charity.html", "Manage Event");
+    printSystemPageSideMenuOtion("../html/create_event.html", "Manage Event");
     printSystemPageSideMenuOtion("../panel/manageVolunteer.php", "Manage Volunteer");
     printSystemPageSideMenuOtion("../panel/manageRunner.php", "Manage Runner");
     printSystemPageSideMenuOtion("../html/create_charity.html", "Create Charity");
