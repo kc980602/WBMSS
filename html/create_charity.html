@@ -36,6 +36,19 @@
       height: 30px;
       cursor: pointer;
     }
+    #charity_form{
+      position: fixed;
+	  left:25%;
+	  top:12.5%;
+	  align-selft:center;
+	  z-index:9999999999;!important
+    }
+	#charity_form iframe{
+	  width:50vw;
+	  height:75vh;
+		border: 2px solid;
+		border-radius: 10px;
+	}
   </style>
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!--[if lt IE 9]>
@@ -45,7 +58,8 @@
 </head>
 
 <body>
-
+  <div id="charity_form">
+  </div>
   <!-- Fixed navbar -->
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -94,7 +108,7 @@
                         <h3 class="panel-title">Charities</h3>
                       </div>
                       <div class="col col-xs-6 text-right">
-                        <button type="button" class="btn btn-sm btn-primary btn-create">Create New</button>
+                        <button type="button" onclick="createForm()" class="btn btn-sm btn-primary btn-create">Create New</button>
                       </div>
                     </div>
                   </div>
@@ -145,6 +159,7 @@
     var maxIndex = 10;
     var minIndex = 0;
     var json;
+	var formOn = false;
 
     function refreshRecords(){
       $.ajax({
@@ -155,6 +170,7 @@
         .done(function(data) {
           document.querySelector("#records-table").innerHTML = "";
           document.querySelector("#pages-selection").innerHTML = "";
+          data = data.replace(/\r?\n/g,"|n|n|n|");
           console.log(data);
           json = $.parseJSON(data);
           for(var t = 1; t <= Math.ceil(json.length/10); t++){
@@ -167,13 +183,28 @@
             var html = "<tr id='records-"+i+"'>"+
                        "<td>"+value.CharityID+"</td>"+
                        "<td>"+value.Name+"</td>"+
-                       "<td>"+value.Description+"</td>"+
+                       "<td>"+value.Description.replace("|n|n|n|","</br>").replace("|n|n|n||n|n|n|","</br></br>").replace("|n|n|n| |n|n|n|","</br></br>")+"</td>"+
                        "<td>"+"<a href='"+value.WebsiteUrl+"'>"+value.WebsiteUrl+"</a>"+"</td>"+
                        "<td>"+"<img width='50' height='50' src='"+((value.Logo=="")?"":"../"+value.Logo)+"'>"+"</td>"+
                        "</tr>";
             $(html).appendTo("#records-table");
           }
         });
+    }
+
+    function createForm(){
+  		if(!formOn){
+  			var html = "<iframe width='1024' height='768' frameborder='0' seamless src='charity_form.html'>";
+  			$(html).appendTo("#charity_form");
+  			formOn = true;
+  		}
+  	}
+
+    function closeForm(){
+      if(formOn){
+        document.querySelector("#charity_form").innerHTML = "";
+        formOn = false;
+      }
     }
 
     function unlock(num,regID){
@@ -207,6 +238,7 @@
       }
     }
     refreshRecords();
+
 	</script>
 
 </body>
