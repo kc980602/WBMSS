@@ -62,11 +62,58 @@
       </div>
     </nav><!--/.nav-collapse -->
 
-    <div class="mainContent">
-      <div class="container">
+    <div class="container mainContent">
+      <div class="inner">
+        <div class="childLeft">
+          <div class="SideContainer">
+            <ul class="nav bs-sidenav">
+              <li>
+                <a href="#glyphicons">Glyphicons</a>
+                  <ul class="nav">
+                    <li><a href="#glyphicons-glyphs">Available glyphs</a></li>
+                    <li><a href="#glyphicons-how-to-use">How to use</a></li>
+                    <li><a href="#glyphicons-examples">Examples</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </div> <!-- /SideContainer -->
+        </div>
 
-      </div> <!-- /container -->
-    </div> <!-- /mainContent -->
+        <div class="childRight">
+          <form class="form-horizontal" action="../php/login.php" method="post" enctype="multipart/form-data" style="width:85%;">
+            <fieldset>
+              <!-- Form Name -->
+              <legend>Login</legend>
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="fn">ID</label>
+                <div class="col-md-4">
+                  <input id="id" name="id" type="text" placeholder="your id" class="form-control input-md" required="">
+                </div>
+              </div>
+
+              <!-- Text input-->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="ln">Password</label>
+                <div class="col-md-4">
+                  <input id="Password" name="Password" type="Password" placeholder="password" class="form-control input-md" required="">
+
+                </div>
+              </div>
+
+              <!-- Button -->
+              <div class="form-group">
+                <label class="col-md-4 control-label" for="submit"></label>
+                <div class="col-md-4">
+                  <button id="reset" name="reset" type="reset" class="btn btn-primary">RESET</button>
+                  <button id="submit" name="submit" class="btn btn-primary" style="float:right;">SUBMIT</button>
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
